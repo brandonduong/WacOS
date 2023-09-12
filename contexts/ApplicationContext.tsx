@@ -26,6 +26,7 @@ export interface ApplicationType {
   clearApps: () => void;
   getIndex: (name: string) => number;
   setSize: (name: string, width: number, height: number) => void;
+  setXY: (name: string, x: number, y: number) => void;
 }
 
 const ApplicationContext = createContext<ApplicationType>(
@@ -79,6 +80,18 @@ const ApplicationProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
+  function setXY(name: string, x: number, y: number) {
+    const app = apps.find((a) => a.title === name);
+    if (app) {
+      app.x = x;
+      app.y = y;
+
+      const copy = [...apps];
+      copy[getIndex(app.title)] = app;
+      setApps(copy);
+    }
+  }
+
   const value = useMemo(
     () => ({
       apps,
@@ -87,6 +100,7 @@ const ApplicationProvider = ({ children }: { children: ReactNode }) => {
       clearApps,
       getIndex,
       setSize,
+      setXY,
     }),
     [apps]
   );

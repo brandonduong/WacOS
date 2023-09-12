@@ -10,7 +10,7 @@ import { animate } from "framer-motion";
 import { useWindowSize } from "react-use";
 
 function Application({ Node, ...props }: IApplicationProps) {
-  const { getIndex, removeApp, setSize, apps } = useApps();
+  const { getIndex, removeApp, setSize, apps, setXY } = useApps();
 
   const { isResizable, setIsResizable, initialSize, setInitialSize } =
     useWindowContext();
@@ -32,18 +32,21 @@ function Application({ Node, ...props }: IApplicationProps) {
   };
 
   const minimize = () => {
+    const newX =
+      100 +
+      100 +
+      200 * getIndex(props.title) -
+      apps[getIndex(props.title)].width! / 2;
+    const newY = height;
     animate(
       `#${props.title}`,
       {
-        y: height,
-        x:
-          100 +
-          100 +
-          200 * getIndex(props.title) -
-          apps[getIndex(props.title)].width! / 2, // 100 for start button, 100 for half a task bar button
+        y: newY,
+        x: newX, // 100 for start button, 100 for half a task bar button
       },
       { type: "spring" }
     );
+    setXY(props.title, newX, newY);
   };
 
   function handleFullscreen() {
