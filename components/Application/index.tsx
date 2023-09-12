@@ -6,9 +6,11 @@ import { IApplicationProps } from "./types";
 import { WindowProvider } from "../../contexts/WindowContext";
 import { useWindowContext } from "./helper";
 import Draggable from "./Draggable";
+import { animate } from "framer-motion";
+import { useWindowSize } from "react-use";
 
 function Application({ Node, ...props }: IApplicationProps) {
-  const { removeApp } = useApps();
+  const { getIndex, removeApp, setSize, apps } = useApps();
 
   const { isResizable, setIsResizable, initialSize, setInitialSize } =
     useWindowContext();
@@ -17,6 +19,8 @@ function Application({ Node, ...props }: IApplicationProps) {
   const [mouse, setMouse] = useState<PointerEvent>();
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const { width, height } = useWindowSize();
 
   const move = (event: any) => {
     setMouse(event);
@@ -27,7 +31,27 @@ function Application({ Node, ...props }: IApplicationProps) {
     removeApp(props.title);
   };
 
+  const minimize = () => {
+    animate(
+      `#${props.title}`,
+      {
+        y: height,
+        x:
+          100 +
+          100 +
+          200 * getIndex(props.title) -
+          apps[getIndex(props.title)].width! / 2, // 100 for start button, 100 for half a task bar button
+      },
+      { type: "spring" }
+    );
+  };
+
   function handleFullscreen() {
+    if (isFullscreen) {
+      setSize(props.title, initialSize.width, initialSize.height);
+    } else {
+      setSize(props.title, width, height);
+    }
     setIsFullscreen((prev) => !prev);
     setDrag(false);
   }
@@ -53,7 +77,7 @@ function Application({ Node, ...props }: IApplicationProps) {
       <div
         style={{
           width: isFullscreen ? "100vw" : initialSize.width,
-          height: isFullscreen ? "calc(100vh - 40px)" : initialSize.height,
+          height: isFullscreen ? "calc(100vh - 50px)" : initialSize.height,
         }}
         className={clsx(
           "z-10 flex flex-col items-center rounded-lg border-[6px] border-black"
@@ -64,7 +88,7 @@ function Application({ Node, ...props }: IApplicationProps) {
           onPointerDown={move}
         >
           <strong
-            className={clsx("ml-auto block", {
+            className={clsx("ml-auto block capitalize", {
               "opacity-0": loading === true,
             })}
           >
@@ -72,6 +96,12 @@ function Application({ Node, ...props }: IApplicationProps) {
           </strong>
 
           <div className="ml-auto flex w-fit gap-2">
+            <button
+              className="flex h-6 w-6 items-center justify-center bg-white text-2xl text-black"
+              onClick={minimize}
+            >
+              -
+            </button>
             {isResizable && (
               <button
                 onClick={handleFullscreen}
