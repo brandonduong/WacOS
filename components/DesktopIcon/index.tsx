@@ -19,6 +19,7 @@ export default function DesktopIcon({
 }: IAppIconProps) {
   const [showAppBg, setShowAppBg] = useState(false);
   const [clickCount, setClickCount] = useState(0);
+  const [position, setPosition] = useState(defaultPosition);
   const ref = useRef<HTMLDivElement>(null);
   const controls = useDragControls();
 
@@ -55,22 +56,36 @@ export default function DesktopIcon({
 
   const onDragEnd = (
     z: PointerEvent,
-    e: { point: { x: number; y: number } }
+    e: { point: { x: number; y: number }; offset: { x: number; y: number } }
   ) => {
     const TASKBAR_HEIGHT = 50;
 
     const { x, y } = e.point;
+
+    let newX, newY;
     if (y > wHeight - TASKBAR_HEIGHT - height) {
-      animate(`#icon-${id}`, { y: wHeight - height * 2 });
+      newY = wHeight - height * 2;
     } else if (y < height) {
-      animate(`#icon-${id}`, { y: 0 });
+      newY = 0;
     }
 
     if (x > wWidth - width) {
-      animate(`#icon-${id}`, { x: wWidth - width * 2 });
+      newX = wWidth - width * 2;
     } else if (x < width) {
-      animate(`#icon-${id}`, { x: 0 });
+      newX = 0;
     }
+
+    const condX = newX !== undefined ? newX : position!.x + e.offset.x;
+    const condY = newY !== undefined ? newY : position!.y + e.offset.y;
+    const nearestX = width * 1.2 + 16; // + 16 from padding
+    const nearestY = height * 0.8 + 16 + 20; // + 20 from 1.25rem line height
+    const newPos = {
+      x: Math.round(condX * (1 / nearestX)) / (1 / nearestX) + 10,
+      y: Math.round(condY * (1 / nearestY)) / (1 / nearestY) + 10,
+    };
+    console.log(newPos, width);
+    animate(`#icon-${id}`, newPos);
+    setPosition(newPos);
   };
 
   return (
@@ -83,6 +98,12 @@ export default function DesktopIcon({
         ref={ref}
         onClickCapture={onClickContent}
         onDragEnd={onDragEnd}
+        style={{
+          position: "absolute",
+
+          width: "fit-content",
+          height: "fit-content",
+        }}
         className={clsx(
           "flex h-fit w-fit flex-col items-center justify-center p-2",
           {

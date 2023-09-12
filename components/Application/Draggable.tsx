@@ -88,15 +88,11 @@ export default function Draggable({
       );
       console.log(refElement.style.transform);
       if (coords?.length) {
-        if (newX !== undefined && newY !== undefined) {
-          setXY(id, newX, newY);
-        } else if (newX !== undefined) {
-          setXY(id, newX, parseInt(coords[2]));
-        } else if (newY !== undefined) {
-          setXY(id, parseInt(coords[1]), newY);
-        } else {
-          setXY(id, newX || parseInt(coords[1]), newY || parseInt(coords[2]));
-        }
+        setXY(
+          id,
+          newX !== undefined ? newX : parseInt(coords[1]),
+          newY !== undefined ? newY : parseInt(coords[2])
+        );
       }
     }
 
