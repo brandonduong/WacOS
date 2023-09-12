@@ -1,5 +1,11 @@
-import { motion, useAnimationControls, useDragControls } from "framer-motion";
-import { useEffect, useMemo } from "react";
+import {
+  motion,
+  useAnimationControls,
+  useDragControls,
+  useInView,
+} from "framer-motion";
+import { animate } from "framer-motion";
+import { useEffect, useMemo, useRef } from "react";
 import { useWindowSize } from "react-use";
 
 interface Props {
@@ -17,6 +23,8 @@ interface Props {
 
   initialWidth: number;
   initialHeight: number;
+
+  id: string;
 }
 
 export default function Draggable({
@@ -29,6 +37,7 @@ export default function Draggable({
   initialHeight,
   initialWidth,
   isFullscreen,
+  id,
 }: Props) {
   const controls = useDragControls();
   const { width, height } = useWindowSize();
@@ -39,7 +48,24 @@ export default function Draggable({
     }
   }, [drag]);
 
-  const onDragEnd = () => {
+  const onDragEnd = (
+    z: PointerEvent,
+    e: { point: { x: number; y: number } }
+  ) => {
+    const TASKBAR_HEIGHT = 50;
+
+    const { x, y } = e.point;
+    if (y > height - TASKBAR_HEIGHT) {
+      animate(`#${id}`, { y: height - initialHeight }, { type: "spring" });
+    } else if (y < 0) {
+      animate(`#${id}`, { y: 0 }, { type: "spring" });
+    }
+
+    if (x > width) {
+      animate(`#${id}`, { x: width - initialWidth }, { type: "spring" });
+    } else if (x < 0) {
+      animate(`#${id}`, { x: 0 }, { type: "spring" });
+    }
     setDrag(false);
   };
 
@@ -84,6 +110,7 @@ export default function Draggable({
         width: isFullscreen ? "100%" : "fit-content",
         height: isFullscreen ? "100%" : "fit-content",
       }}
+      id={id}
     >
       {children}
     </motion.div>

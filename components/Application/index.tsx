@@ -24,9 +24,7 @@ function Application({ Node, ...props }: IApplicationProps) {
   };
 
   const close = () => {
-    setTimeout(() => {
-      removeApp(props.title);
-    }, 300);
+    removeApp(props.title);
   };
 
   function handleFullscreen() {
@@ -50,6 +48,7 @@ function Application({ Node, ...props }: IApplicationProps) {
       isFullscreen={isFullscreen}
       initialHeight={initialSize.height}
       initialWidth={initialSize.width}
+      id={props.title}
     >
       <div
         style={{
