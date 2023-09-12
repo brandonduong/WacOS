@@ -6,16 +6,11 @@ import { IApplicationProps } from "./types";
 import { WindowProvider } from "../../contexts/WindowContext";
 import { useWindowContext } from "./helper";
 import Draggable from "./Draggable";
-import { animate } from "framer-motion";
 import { useWindowSize } from "react-use";
 
-function Application({
-  Node,
-  focused,
-  setFocused,
-  ...props
-}: IApplicationProps) {
-  const { getIndex, removeApp, setSize, apps, setMinimized } = useApps();
+function Application({ Node, ...props }: IApplicationProps) {
+  const { removeApp, setSize, focused, setForwardsHistory, minimize } =
+    useApps();
 
   const { isResizable, setIsResizable, initialSize, setInitialSize } =
     useWindowContext();
@@ -36,24 +31,6 @@ function Application({
     removeApp(props.title);
   };
 
-  const minimize = () => {
-    const newX =
-      100 +
-      100 +
-      200 * getIndex(props.title) -
-      apps[getIndex(props.title)].width! / 2;
-    const newY = height;
-    animate(
-      `#${props.title}`,
-      {
-        y: newY,
-        x: newX, // 100 for start button, 100 for half a task bar button
-      },
-      { type: "spring" }
-    );
-    setMinimized(props.title, true);
-  };
-
   function handleFullscreen() {
     if (isFullscreen) {
       setSize(props.title, initialSize.width, initialSize.height);
@@ -65,14 +42,13 @@ function Application({
   }
 
   useEffect(() => {
-    setFocused(props.title);
     setTimeout(() => {
       setLoading(false);
     }, 500);
   }, []);
 
   function handleClick() {
-    setFocused(props.title);
+    setForwardsHistory(props.title);
   }
 
   return (
@@ -86,7 +62,6 @@ function Application({
       initialHeight={initialSize.height}
       initialWidth={initialSize.width}
       id={props.title}
-      focused={focused}
     >
       <div
         onPointerDown={handleClick}
@@ -123,7 +98,7 @@ function Application({
                 { "bg-fuchsia-200": focused === props.title },
                 { "bg-slate-200": focused !== props.title }
               )}
-              onClick={minimize}
+              onClick={() => minimize(props.title)}
             >
               -
             </button>

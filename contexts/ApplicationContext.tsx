@@ -2,6 +2,7 @@ import { createContext, useState, ReactNode, useMemo, lazy } from "react";
 import { App } from "../types/ApplicationType";
 import { useWindowContext } from "@/components/Application/helper";
 import { useWindowSize } from "react-use";
+import { animate } from "framer-motion/dom";
 
 const APPLICATIONS = {
   clock: lazy(() => import("../components/Apps/Clock")),
@@ -30,6 +31,11 @@ export interface ApplicationType {
   setSize: (name: string, width: number, height: number) => void;
   setXY: (name: string, x: number, y: number) => void;
   setMinimized: (name: string, minimized: boolean) => void;
+  setBackwardsHistory: (name: string) => void;
+  setForwardsHistory: (name: string) => void;
+  focused: string;
+  minimize: (name: string) => void;
+  history: string[];
 }
 
 const ApplicationContext = createContext<ApplicationType>(
@@ -38,6 +44,8 @@ const ApplicationContext = createContext<ApplicationType>(
 
 const ApplicationProvider = ({ children }: { children: ReactNode }) => {
   const [apps, setApps] = useState<App[]>([]);
+  const [focused, setFocused] = useState("");
+  const [history, setHistory] = useState<string[]>([]);
   const { initialSize } = useWindowContext();
   const wWidth = useWindowSize().width;
   const wHeight = useWindowSize().height;
@@ -59,11 +67,14 @@ const ApplicationProvider = ({ children }: { children: ReactNode }) => {
       };
 
       setApps([...apps, app]);
+      setForwardsHistory(name);
     }
   };
 
   const removeApp = (name: string) => {
     setApps((prev) => prev.filter((app) => app.title !== name));
+
+    setBackwardsHistory(name);
   };
 
   const clearApps = () => {
@@ -108,6 +119,34 @@ const ApplicationProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
+  function setBackwardsHistory(name: string) {
+    const newHistory = [...history].filter((h) => h !== name);
+    setHistory([...newHistory]);
+    setFocused(newHistory[newHistory.length - 1]);
+  }
+
+  function setForwardsHistory(name: string) {
+    setFocused(name);
+    const newHistory = [...history].filter((h) => h !== name);
+    setHistory([...newHistory, name]);
+  }
+
+  const minimize = (name: string) => {
+    const newX =
+      100 + 100 + 200 * getIndex(name) - apps[getIndex(name)].width! / 2;
+    const newY = wHeight;
+    animate(
+      `#${name}`,
+      {
+        y: newY,
+        x: newX, // 100 for start button, 100 for half a task bar button
+      },
+      { type: "spring" }
+    );
+    setMinimized(name, true);
+    setBackwardsHistory(name);
+  };
+
   const value = useMemo(
     () => ({
       apps,
@@ -118,8 +157,13 @@ const ApplicationProvider = ({ children }: { children: ReactNode }) => {
       setSize,
       setXY,
       setMinimized,
+      setBackwardsHistory,
+      setForwardsHistory,
+      focused,
+      minimize,
+      history,
     }),
-    [apps]
+    [apps, focused, history]
   );
 
   return (

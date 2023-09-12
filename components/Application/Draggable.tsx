@@ -26,7 +26,6 @@ interface Props {
   initialHeight: number;
 
   id: string;
-  focused: string;
 }
 
 export default function Draggable({
@@ -40,13 +39,14 @@ export default function Draggable({
   initialWidth,
   isFullscreen,
   id,
-  focused,
 }: Props) {
-  const { apps, getIndex, setXY } = useApps();
+  const { apps, getIndex, setXY, focused, history } = useApps();
   const app = apps[getIndex(id)];
   const controls = useDragControls();
   const { width, height } = useWindowSize();
   const ref = useRef<HTMLDivElement>(null);
+
+  const hIndex = history.findIndex((h) => h === id);
 
   useEffect(() => {
     if (drag && mouse && !isFullscreen) {
@@ -138,7 +138,7 @@ export default function Draggable({
       dragMomentum={false}
       style={{
         position: "absolute",
-        zIndex: focused === id ? 50 : 25,
+        zIndex: 10 * hIndex + 1,
         width: isFullscreen ? "100%" : "fit-content",
         height: isFullscreen ? "100%" : "fit-content",
       }}

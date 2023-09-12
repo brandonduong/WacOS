@@ -1,11 +1,9 @@
 import { animate } from "framer-motion";
-import { useWindowSize } from "react-use";
-import { useWindowContext } from "../Application/helper";
 import { useApps } from "@/hooks/useApp";
 
 export default function ApplicationButton({ title }: { title: string }) {
-  const { apps, getIndex, setMinimized } = useApps();
-  const { width, height } = useWindowSize();
+  const { apps, getIndex, setMinimized, setForwardsHistory, minimize } =
+    useApps();
   const app = apps[getIndex(title)];
 
   function isVisible() {
@@ -13,7 +11,6 @@ export default function ApplicationButton({ title }: { title: string }) {
   }
 
   function handleClick() {
-    let newX, newY;
     if (!isVisible()) {
       animate(
         `#${title}`,
@@ -24,23 +21,10 @@ export default function ApplicationButton({ title }: { title: string }) {
         { type: "spring" }
       );
       setMinimized(title, false);
+
+      setForwardsHistory(title);
     } else {
-      newX =
-        100 + 100 + 200 * getIndex(title) - apps[getIndex(title)].width! / 2;
-      newY = height;
-      animate(
-        `#${title}`,
-        {
-          y: height,
-          x:
-            100 +
-            100 +
-            200 * getIndex(title) -
-            apps[getIndex(title)].width! / 2, // 100 for start button, 100 for half a task bar button
-        },
-        { type: "spring" }
-      );
-      setMinimized(title, true);
+      minimize(title);
     }
   }
 
