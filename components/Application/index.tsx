@@ -10,7 +10,7 @@ import { animate } from "framer-motion";
 import { useWindowSize } from "react-use";
 
 function Application({ Node, ...props }: IApplicationProps) {
-  const { getIndex, removeApp, setSize, apps, setXY } = useApps();
+  const { getIndex, removeApp, setSize, apps, setMinimized } = useApps();
 
   const { isResizable, setIsResizable, initialSize, setInitialSize } =
     useWindowContext();
@@ -46,7 +46,7 @@ function Application({ Node, ...props }: IApplicationProps) {
       },
       { type: "spring" }
     );
-    setXY(props.title, newX, newY);
+    setMinimized(props.title, true);
   };
 
   function handleFullscreen() {

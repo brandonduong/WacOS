@@ -1,3 +1,4 @@
+import { useApps } from "@/hooks/useApp";
 import {
   motion,
   useAnimationControls,
@@ -39,8 +40,11 @@ export default function Draggable({
   isFullscreen,
   id,
 }: Props) {
+  const { apps, getIndex, setXY } = useApps();
+  const app = apps[getIndex(id)];
   const controls = useDragControls();
   const { width, height } = useWindowSize();
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (drag && mouse && !isFullscreen) {
@@ -55,17 +59,47 @@ export default function Draggable({
     const TASKBAR_HEIGHT = 50;
 
     const { x, y } = e.point;
+    console.log(x, y, initialHeight);
+    let newX, newY;
     if (y > height - TASKBAR_HEIGHT) {
-      animate(`#${id}`, { y: height - initialHeight }, { type: "spring" });
-    } else if (y < 0) {
-      animate(`#${id}`, { y: 0 }, { type: "spring" });
+      newY = height - initialHeight;
+    } else if (y < TASKBAR_HEIGHT) {
+      newY = 0;
     }
 
     if (x > width) {
-      animate(`#${id}`, { x: width - initialWidth }, { type: "spring" });
-    } else if (x < 0) {
-      animate(`#${id}`, { x: 0 }, { type: "spring" });
+      newX = width - initialWidth;
+    } else if (x < TASKBAR_HEIGHT) {
+      newX = 0;
     }
+
+    // Fix bug where state change is same
+    if (newX === app.x) {
+      newX! += 1;
+    }
+    if (newY === app.y) {
+      newY! += 1;
+    }
+
+    const refElement = ref?.current;
+    if (refElement) {
+      const coords = refElement.style.transform.match(
+        /^translateX\((.+)px\) translateY\((.+)px\)/
+      );
+      console.log(refElement.style.transform);
+      if (coords?.length) {
+        if (newX !== undefined && newY !== undefined) {
+          setXY(id, newX, newY);
+        } else if (newX !== undefined) {
+          setXY(id, newX, parseInt(coords[2]));
+        } else if (newY !== undefined) {
+          setXY(id, parseInt(coords[1]), newY);
+        } else {
+          setXY(id, newX || parseInt(coords[1]), newY || parseInt(coords[2]));
+        }
+      }
+    }
+
     setDrag(false);
   };
 
@@ -111,6 +145,7 @@ export default function Draggable({
         height: isFullscreen ? "100%" : "fit-content",
       }}
       id={id}
+      ref={ref}
     >
       {children}
     </motion.div>

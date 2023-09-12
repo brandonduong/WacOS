@@ -4,37 +4,26 @@ import { useWindowContext } from "../Application/helper";
 import { useApps } from "@/hooks/useApp";
 
 export default function ApplicationButton({ title }: { title: string }) {
-  const { apps, getIndex, setXY } = useApps();
+  const { apps, getIndex, setMinimized } = useApps();
   const { width, height } = useWindowSize();
   const app = apps[getIndex(title)];
 
   function isVisible() {
-    return (
-      (app &&
-        app.x &&
-        app.y &&
-        app.x > 0 &&
-        app.x < width &&
-        app.y > 0 &&
-        app.y < height) ||
-      !app.x ||
-      !app.y
-    );
+    return !apps[getIndex(title)].minimized;
   }
 
   function handleClick() {
     let newX, newY;
     if (!isVisible()) {
-      newX = (width - app.width!) / 2;
-      newY = (height - app.height!) / 2;
       animate(
         `#${title}`,
         {
-          x: newX,
-          y: newY,
+          x: app.x,
+          y: app.y,
         },
         { type: "spring" }
       );
+      setMinimized(title, false);
     } else {
       newX =
         100 + 100 + 200 * getIndex(title) - apps[getIndex(title)].width! / 2;
@@ -51,8 +40,8 @@ export default function ApplicationButton({ title }: { title: string }) {
         },
         { type: "spring" }
       );
+      setMinimized(title, true);
     }
-    setXY(title, newX, newY);
   }
 
   return (

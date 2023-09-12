@@ -10,6 +10,8 @@ interface App {
   y?: number;
   width?: number;
   height?: number;
+
+  minimized: boolean;
 }
 
 export type { App };

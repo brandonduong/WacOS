@@ -1,6 +1,7 @@
 import { createContext, useState, ReactNode, useMemo, lazy } from "react";
 import { App } from "../types/ApplicationType";
 import { useWindowContext } from "@/components/Application/helper";
+import { useWindowSize } from "react-use";
 
 const APPLICATIONS = {
   clock: lazy(() => import("../components/Apps/Clock")),
@@ -17,6 +18,7 @@ interface AddAppProps {
   y?: number;
   width?: number;
   height?: number;
+  minimized?: boolean;
 }
 
 export interface ApplicationType {
@@ -27,6 +29,7 @@ export interface ApplicationType {
   getIndex: (name: string) => number;
   setSize: (name: string, width: number, height: number) => void;
   setXY: (name: string, x: number, y: number) => void;
+  setMinimized: (name: string, minimized: boolean) => void;
 }
 
 const ApplicationContext = createContext<ApplicationType>(
@@ -36,8 +39,10 @@ const ApplicationContext = createContext<ApplicationType>(
 const ApplicationProvider = ({ children }: { children: ReactNode }) => {
   const [apps, setApps] = useState<App[]>([]);
   const { initialSize } = useWindowContext();
+  const wWidth = useWindowSize().width;
+  const wHeight = useWindowSize().height;
 
-  const addApp = ({ name, x, y, width, height }: AddAppProps) => {
+  const addApp = ({ name, x, y, width, height, minimized }: AddAppProps) => {
     // Only allow 1 instance open
     if (!apps.find((app) => app.title === name)) {
       const Comp = APPLICATIONS[name];
@@ -46,10 +51,11 @@ const ApplicationProvider = ({ children }: { children: ReactNode }) => {
         Node: Comp,
         title: name,
         start: Date.now(),
-        x: x,
-        y: y,
+        x: x || wWidth / 2 - initialSize.width / 2,
+        y: y || wHeight / 2 - initialSize.height / 2,
         width: width || initialSize.width,
         height: height || initialSize.height,
+        minimized: minimized || false,
       };
 
       setApps([...apps, app]);
@@ -92,6 +98,16 @@ const ApplicationProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
+  function setMinimized(name: string, minimized: boolean) {
+    const app = apps.find((a) => a.title === name);
+    if (app) {
+      app.minimized = minimized;
+      const copy = [...apps];
+      copy[getIndex(app.title)] = app;
+      setApps(copy);
+    }
+  }
+
   const value = useMemo(
     () => ({
       apps,
@@ -101,6 +117,7 @@ const ApplicationProvider = ({ children }: { children: ReactNode }) => {
       getIndex,
       setSize,
       setXY,
+      setMinimized,
     }),
     [apps]
   );
