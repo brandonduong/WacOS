@@ -3,12 +3,17 @@ import { AppsOnDesktop } from "../../constants/desktop";
 
 // hooks
 import { useApps } from "../../hooks/useApp";
+import Application from "../Application";
 
 export default function Desktop() {
-  const { addApp } = useApps();
+  const { apps, addApp } = useApps();
 
   return (
     <>
+      {apps.map((app) => (
+        <Application key={app.title} {...app} />
+      ))}
+
       {AppsOnDesktop.map((app) => (
         <DesktopIcon
           key={app.id}

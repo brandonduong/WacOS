@@ -3,9 +3,9 @@ import { App } from "../types/ApplicationType";
 
 const APPLICATIONS = {
   clock: lazy(() => import("../components/Apps/Clock")),
-  task: null,
-  email: null,
-  messenger: null,
+  task: lazy(() => import("../components/Apps/Clock")),
+  email: lazy(() => import("../components/Apps/Email/index")),
+  messenger: lazy(() => import("../components/Apps/Clock")),
 };
 
 export type ApplicationName = keyof typeof APPLICATIONS;
