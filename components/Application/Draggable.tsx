@@ -26,6 +26,7 @@ interface Props {
   initialHeight: number;
 
   id: string;
+  focused: string;
 }
 
 export default function Draggable({
@@ -39,6 +40,7 @@ export default function Draggable({
   initialWidth,
   isFullscreen,
   id,
+  focused,
 }: Props) {
   const { apps, getIndex, setXY } = useApps();
   const app = apps[getIndex(id)];
@@ -136,7 +138,7 @@ export default function Draggable({
       dragMomentum={false}
       style={{
         position: "absolute",
-        zIndex: 25,
+        zIndex: focused === id ? 50 : 25,
         width: isFullscreen ? "100%" : "fit-content",
         height: isFullscreen ? "100%" : "fit-content",
       }}

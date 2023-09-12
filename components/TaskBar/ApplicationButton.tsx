@@ -47,7 +47,7 @@ export default function ApplicationButton({ title }: { title: string }) {
   return (
     <div className="mr-2 text-indigo-600">
       <button
-        className="p-1 border-t-indigo-600 border-l-indigo-600 border-2 hover:bg-red-200 capitalize w-48 text-start"
+        className="p-1 border-t-indigo-600 border-l-indigo-600 border-b-white border-r-white border-2 hover:bg-red-200 capitalize w-48 text-start"
         onClick={handleClick}
       >
         {title}

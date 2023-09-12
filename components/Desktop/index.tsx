@@ -4,14 +4,21 @@ import { AppsOnDesktop } from "../../constants/desktop";
 // hooks
 import { useApps } from "../../hooks/useApp";
 import Application from "../Application";
+import { useState } from "react";
 
 export default function Desktop() {
   const { apps, addApp } = useApps();
+  const [focused, setFocused] = useState("");
 
   return (
     <>
       {apps.map((app) => (
-        <Application key={app.title} {...app} />
+        <Application
+          key={app.title}
+          {...app}
+          focused={focused}
+          setFocused={setFocused}
+        />
       ))}
 
       {AppsOnDesktop.map((app, index) => (

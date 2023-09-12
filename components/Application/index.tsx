@@ -9,7 +9,12 @@ import Draggable from "./Draggable";
 import { animate } from "framer-motion";
 import { useWindowSize } from "react-use";
 
-function Application({ Node, ...props }: IApplicationProps) {
+function Application({
+  Node,
+  focused,
+  setFocused,
+  ...props
+}: IApplicationProps) {
   const { getIndex, removeApp, setSize, apps, setMinimized } = useApps();
 
   const { isResizable, setIsResizable, initialSize, setInitialSize } =
@@ -60,10 +65,15 @@ function Application({ Node, ...props }: IApplicationProps) {
   }
 
   useEffect(() => {
+    setFocused(props.title);
     setTimeout(() => {
       setLoading(false);
     }, 500);
   }, []);
+
+  function handleClick() {
+    setFocused(props.title);
+  }
 
   return (
     <Draggable
@@ -76,31 +86,43 @@ function Application({ Node, ...props }: IApplicationProps) {
       initialHeight={initialSize.height}
       initialWidth={initialSize.width}
       id={props.title}
+      focused={focused}
     >
       <div
+        onPointerDown={handleClick}
         style={{
           width: isFullscreen ? "100vw" : initialSize.width,
           height: isFullscreen ? "calc(100vh - 50px)" : initialSize.height,
         }}
         className={clsx(
-          "z-10 flex flex-col items-center rounded-lg border-[6px] border-black"
+          "z-10 flex flex-col items-center border-2 border-indigo-600 px-1 pb-2 pt-1",
+          { "bg-cyan-200": focused === props.title },
+          { "bg-slate-200": focused !== props.title }
         )}
       >
         <div
-          className="z-30 mt-0 flex h-8 w-full select-none items-center border-2 border-black bg-black text-white"
+          className={clsx(
+            "z-30 mt-0 flex w-full select-none items-center border-2 border-indigo-600 text-indigo-600 mb-1",
+            { "bg-fuchsia-200": focused === props.title },
+            { "bg-slate-200": focused !== props.title }
+          )}
           onPointerDown={move}
         >
           <strong
-            className={clsx("ml-auto block capitalize", {
+            className={clsx("block capitalize", {
               "opacity-0": loading === true,
             })}
           >
             {props.title}
           </strong>
 
-          <div className="ml-auto flex w-fit gap-2">
+          <div className="ml-auto flex w-fit gap-1 p-1">
             <button
-              className="flex h-6 w-6 items-center justify-center bg-white text-2xl text-black"
+              className={clsx(
+                "flex h-6 w-6 items-center justify-center border-2 border-indigo-600 text-2xl text-black",
+                { "bg-fuchsia-200": focused === props.title },
+                { "bg-slate-200": focused !== props.title }
+              )}
               onClick={minimize}
             >
               -
@@ -108,13 +130,21 @@ function Application({ Node, ...props }: IApplicationProps) {
             {isResizable && (
               <button
                 onClick={handleFullscreen}
-                className="flex h-6 w-6 items-center justify-center bg-white text-2xl text-black"
+                className={clsx(
+                  "flex h-6 w-6 items-center justify-center border-2 border-indigo-600 text-2xl text-black",
+                  { "bg-fuchsia-200": focused === props.title },
+                  { "bg-slate-200": focused !== props.title }
+                )}
               >
                 =
               </button>
             )}
             <button
-              className="flex h-6 w-6 items-center justify-center bg-white text-2xl text-black"
+              className={clsx(
+                "flex h-6 w-6 items-center justify-center border-2 border-indigo-600 text-2xl text-black",
+                { "bg-fuchsia-200": focused === props.title },
+                { "bg-slate-200": focused !== props.title }
+              )}
               onClick={close}
             >
               x
@@ -124,7 +154,7 @@ function Application({ Node, ...props }: IApplicationProps) {
 
         <div
           className={clsx(
-            "flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-md bg-white"
+            "flex h-full w-full flex-col items-center justify-center overflow-hidden border-2 border-indigo-600 bg-white"
           )}
         >
           <WindowProvider
