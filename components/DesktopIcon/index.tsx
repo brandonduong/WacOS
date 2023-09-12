@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import { useDragControls, motion } from "framer-motion";
 import { useClickAway } from "react-use";
 import clsx from "clsx";
+import { animate } from "framer-motion";
+import { useWindowSize } from "react-use";
 
 export default function DesktopIcon({
   onDoubleClick,
@@ -13,11 +15,15 @@ export default function DesktopIcon({
   width = 80,
   height = 80,
   icon,
+  id,
 }: IAppIconProps) {
   const [showAppBg, setShowAppBg] = useState(false);
   const [clickCount, setClickCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const controls = useDragControls();
+
+  const wWidth = useWindowSize().width;
+  const wHeight = useWindowSize().height;
 
   const onClickContent = () => {
     const isDoubleClick = clickCount === 1;
@@ -47,6 +53,26 @@ export default function DesktopIcon({
     setShowAppBg(false);
   });
 
+  const onDragEnd = (
+    z: PointerEvent,
+    e: { point: { x: number; y: number } }
+  ) => {
+    const TASKBAR_HEIGHT = 50;
+
+    const { x, y } = e.point;
+    if (y > wHeight - TASKBAR_HEIGHT - height) {
+      animate(`#icon-${id}`, { y: wHeight - height * 2 });
+    } else if (y < height) {
+      animate(`#icon-${id}`, { y: 0 });
+    }
+
+    if (x > wWidth - width) {
+      animate(`#icon-${id}`, { x: wWidth - width * 2 });
+    } else if (x < width) {
+      animate(`#icon-${id}`, { x: 0 });
+    }
+  };
+
   return (
     <>
       <motion.div
@@ -56,12 +82,14 @@ export default function DesktopIcon({
         dragMomentum={false}
         ref={ref}
         onClickCapture={onClickContent}
+        onDragEnd={onDragEnd}
         className={clsx(
           "flex h-fit w-fit flex-col items-center justify-center p-2",
           {
             "bg-black": showAppBg,
           }
         )}
+        id={`icon-${id}`}
       >
         <div
           style={{

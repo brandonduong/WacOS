@@ -22,6 +22,7 @@ export default function Desktop() {
           onDoubleClick={() => addApp({ name: app.id })}
           defaultPosition={{ x: 10, y: 10 }}
           title={app.title}
+          id={app.id}
         />
       ))}
     </>

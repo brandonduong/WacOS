@@ -6,6 +6,7 @@ interface IAppIconProps extends React.HTMLAttributes<HTMLDivElement> {
   onDoubleClick?: () => void;
   width?: number;
   height?: number;
+  id: string;
 }
 
 export type { IAppIconProps };
