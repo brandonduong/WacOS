@@ -82,6 +82,7 @@ function Application({ Node, ...props }: IApplicationProps) {
             { "bg-slate-200": focused !== props.title }
           )}
           onPointerDown={move}
+          onPointerUp={() => setDrag(false)}
         >
           <strong
             className={clsx("block capitalize", {

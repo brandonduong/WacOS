@@ -1,5 +1,6 @@
 import { animate } from "framer-motion";
 import { useApps } from "@/hooks/useApp";
+import CustomButton from "../CustomButton";
 
 export default function ApplicationButton({ title }: { title: string }) {
   const { apps, getIndex, setMinimized, setForwardsHistory, minimize } =
@@ -29,13 +30,11 @@ export default function ApplicationButton({ title }: { title: string }) {
   }
 
   return (
-    <div className="mr-2 text-indigo-600">
-      <button
-        className="p-1 border-t-indigo-600 border-l-indigo-600 border-b-white border-r-white border-2 hover:bg-red-200 capitalize w-48 text-start"
-        onClick={handleClick}
-      >
-        {title}
-      </button>
-    </div>
+    <CustomButton
+      handleClick={handleClick}
+      title={title}
+      clicked={!app.minimized}
+      className="w-48 text-start"
+    />
   );
 }
