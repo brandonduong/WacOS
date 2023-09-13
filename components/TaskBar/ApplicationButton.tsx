@@ -32,9 +32,14 @@ export default function ApplicationButton({ title }: { title: string }) {
   return (
     <CustomButton
       handleClick={handleClick}
-      title={title}
+      title={
+        <>
+          <div className="mx-1 h-4 w-4 bg-purple"></div>
+          {title}
+        </>
+      }
       clicked={!app.minimized}
-      className="w-48 text-start"
+      className="w-48 text-start font-black"
     />
   );
 }

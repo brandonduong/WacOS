@@ -2,7 +2,7 @@ import clsx from "clsx";
 
 interface Props {
   handleClick: () => void;
-  title: string;
+  title: string | React.ReactNode;
   clicked: boolean;
   className: string;
 }
@@ -14,17 +14,17 @@ export default function CustomButton({
   className,
 }: Props) {
   return (
-    <div className="mr-2 text-indigo-600">
+    <div className="mr-2 text-purple">
       <button
         className={clsx(
           className,
-          "p-1 border-2 hover:bg-red-200 capitalize",
+          "p-1 border-2 hover:bg-fuchsia-100 capitalize flex items-center",
           {
-            "border-t-indigo-600 border-l-indigo-600 border-b-white border-r-white":
+            "border-t-purple border-l-purple border-b-white border-r-white":
               clicked,
           },
           {
-            "border-b-indigo-600 border-r-indigo-600 border-t-white border-l-white":
+            "border-b-purple border-r-purple border-t-white border-l-white":
               !clicked,
           }
         )}

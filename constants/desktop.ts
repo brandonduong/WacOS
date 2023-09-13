@@ -8,21 +8,21 @@ export const AppsOnDesktop: {
   {
     title: "Clock",
     id: "clock",
-    icon: "next.svg",
+    icon: "/icons/clock.png",
   },
   {
     title: "Task Manager",
     id: "task",
-    icon: "vercel.svg",
+    icon: "/icons/text.png",
   },
   {
     title: "Email",
     id: "email",
-    icon: "next.svg",
+    icon: "/icons/email.png",
   },
   {
     title: "Messenger",
     id: "messenger",
-    icon: "vercel.svg",
+    icon: "/icons/messenger.png",
   },
 ];

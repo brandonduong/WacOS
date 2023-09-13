@@ -122,9 +122,8 @@ export default function DesktopIcon({
         />
         <strong
           style={{ width: width * 1.2, fontSize: "0.85rem" }}
-          className={clsx("break-words text-center", {
+          className={clsx("break-words text-center text-purple", {
             "text-white": showAppBg,
-            "text-black": !showAppBg,
           })}
         >
           {title}
