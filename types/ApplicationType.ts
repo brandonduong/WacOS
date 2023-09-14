@@ -2,7 +2,7 @@ import type { LazyExoticComponent, ComponentType } from "react";
 
 interface App {
   Node: LazyExoticComponent<ComponentType<any>>;
-  id: string;
+
   title: string;
 
   start?: number;

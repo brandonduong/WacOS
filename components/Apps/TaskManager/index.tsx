@@ -8,12 +8,10 @@ export default function TaskManager() {
 
   return (
     <div>
+      <Task title={"rejections"} value={rejections} />
       {Object.entries(rest).map(([key, value]) => (
-        <Task key={key} title={key} value={value} />
+        <Task key={key} title={key} value={value} graph />
       ))}
-      <div onClick={() => setStats({ ...stats, energy: stats.energy - 1 })}>
-        test
-      </div>
     </div>
   );
 }

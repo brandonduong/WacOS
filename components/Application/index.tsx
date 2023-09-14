@@ -160,7 +160,7 @@ function Application({ Node, ...props }: IApplicationProps) {
           >
             <div
               className={clsx(
-                "h-full w-full pl-1",
+                "h-full w-full p-2",
                 loading ? "opacity-0" : "opacity-100"
               )}
             >
