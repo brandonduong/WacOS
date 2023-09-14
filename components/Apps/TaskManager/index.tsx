@@ -7,7 +7,7 @@ export default function TaskManager() {
   const { rejections } = stats;
 
   return (
-    <div>
+    <div className="grid gap-y-2">
       <Task title={"rejections"} value={rejections} />
       {Object.entries(rest).map(([key, value]) => (
         <Task key={key} title={key} value={value} graph />

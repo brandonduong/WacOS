@@ -41,7 +41,7 @@ export default function Task({ title, value, graph }: Props) {
 
   return (
     <div
-      className={clsx("grid gap-x-4 mb-2", { "h-11": graph })}
+      className={clsx("grid gap-x-4", { "h-11": graph })}
       style={{ gridTemplateColumns: "0.25fr 1fr 1fr" }}
     >
       <div>icon</div>

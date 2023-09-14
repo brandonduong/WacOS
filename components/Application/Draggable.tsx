@@ -64,23 +64,23 @@ export default function Draggable({
     console.log(x, y, initialHeight);
     let newX, newY;
     if (y > height - TASKBAR_HEIGHT) {
-      newY = height - initialHeight;
-    } else if (y < TASKBAR_HEIGHT) {
+      newY = height - TASKBAR_HEIGHT * 2;
+    } else if (y < 0) {
       newY = 0;
     }
 
     if (x > width) {
-      newX = width - initialWidth;
+      newX = width - TASKBAR_HEIGHT;
     } else if (x < TASKBAR_HEIGHT) {
       newX = 0;
     }
 
     // Fix bug where state change is same
     if (newX === app.x) {
-      newX! += 1;
+      newX! += 0.1;
     }
     if (newY === app.y) {
-      newY! += 1;
+      newY! += 0.1;
     }
 
     const refElement = ref?.current;
