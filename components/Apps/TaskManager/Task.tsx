@@ -7,10 +7,18 @@ import {
   PointElement,
   LineElement,
   Filler,
+  LineController,
 } from "chart.js";
 import clsx from "clsx";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  LineController
+);
 
 interface Props {
   title: string;

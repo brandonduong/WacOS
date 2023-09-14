@@ -25,4 +25,9 @@ export const AppsOnDesktop: {
     id: "messenger",
     icon: "/icons/messenger.png",
   },
+  {
+    title: "Internet",
+    id: "internet",
+    icon: "/icons/internet.png",
+  },
 ];
