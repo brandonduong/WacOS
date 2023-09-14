@@ -74,8 +74,8 @@ function Application({ Node, ...props }: IApplicationProps) {
       <div
         onPointerDown={handleClick}
         style={{
-          width: isFullscreen ? "100vw" : initialSize.width,
-          height: isFullscreen ? "calc(100vh - 50px)" : initialSize.height,
+          width: isFullscreen ? "100vw" : "100%",
+          height: isFullscreen ? "calc(100vh - 50px)" : "100%",
         }}
         className={clsx(
           "z-10 flex flex-col items-center border-2 border-purple pt-1 px-1 drop-shadow-3xl font-visitor",
@@ -147,7 +147,8 @@ function Application({ Node, ...props }: IApplicationProps) {
         </div>
         <div
           className={clsx(
-            "flex h-full w-full flex-col items-center justify-center overflow-hidden border-2 border-purple bg-white"
+            "flex w-full flex-col items-center justify-center overflow-hidden border-2 border-purple bg-white",
+            { "h-full": isFullscreen }
           )}
         >
           <WindowProvider
@@ -159,7 +160,7 @@ function Application({ Node, ...props }: IApplicationProps) {
           >
             <div
               className={clsx(
-                "h-full w-full",
+                "h-full w-full pl-1",
                 loading ? "opacity-0" : "opacity-100"
               )}
             >

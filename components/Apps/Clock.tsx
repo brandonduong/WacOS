@@ -1,3 +1,10 @@
 export default function Clock() {
-  return <>clock</>;
+  return (
+    <>
+      <div>clock</div>
+      <div>clock</div>
+      <div>clock</div>
+      <div>clock</div>
+    </>
+  );
 }
