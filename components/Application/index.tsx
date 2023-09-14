@@ -78,7 +78,7 @@ function Application({ Node, ...props }: IApplicationProps) {
           height: isFullscreen ? "calc(100vh - 50px)" : initialSize.height,
         }}
         className={clsx(
-          "z-10 flex flex-col items-center border-2 border-purple pt-1 px-1 drop-shadow-3xl",
+          "z-10 flex flex-col items-center border-2 border-purple pt-1 px-1 drop-shadow-3xl font-visitor",
           { "bg-cyan-200": focused === props.title },
           { "bg-slate-200": focused !== props.title }
         )}
@@ -93,18 +93,18 @@ function Application({ Node, ...props }: IApplicationProps) {
           onPointerUp={() => setDrag(false)}
         >
           <div className="mx-1 h-4 w-4 bg-purple"></div>
-          <strong
-            className={clsx("block capitalize font-black", {
+          <span
+            className={clsx("block capitalize", {
               "opacity-0": loading === true,
             })}
           >
             {props.title}
-          </strong>
+          </span>
 
           <div className="ml-auto flex w-fit gap-1 p-1">
             <button
               className={clsx(
-                "flex h-5 w-5 pb-[3px] items-center justify-center border-2 border-purple text-2xl text-black",
+                "flex h-5 w-5 pl-[2px] pb-[1px] items-center justify-center border-2 border-purple text-2xl",
                 {
                   "bg-fuchsia-200 hover:bg-fuchsia-100":
                     focused === props.title,
@@ -119,7 +119,7 @@ function Application({ Node, ...props }: IApplicationProps) {
               <button
                 onClick={handleFullscreen}
                 className={clsx(
-                  "flex h-5 w-5 pb-[3px] items-center justify-center border-2 border-purple text-2xl text-black",
+                  "flex h-5 w-5 pl-[2px] pb-[1px] items-center justify-center border-2 border-purple text-2xl",
                   {
                     "bg-fuchsia-200 hover:bg-fuchsia-100":
                       focused === props.title,
@@ -132,7 +132,7 @@ function Application({ Node, ...props }: IApplicationProps) {
             )}
             <button
               className={clsx(
-                "flex h-5 w-5 pb-[3px] items-center justify-center border-2 border-purple text-2xl text-black",
+                "flex h-5 w-5 pl-[3.5px] items-center justify-center border-2 border-purple text-4xl",
                 {
                   "bg-fuchsia-200 hover:bg-fuchsia-100":
                     focused === props.title,

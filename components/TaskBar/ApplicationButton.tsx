@@ -39,7 +39,7 @@ export default function ApplicationButton({ title }: { title: string }) {
         </>
       }
       clicked={!app.minimized}
-      className="w-48 text-start font-black"
+      className="w-48 text-start"
     />
   );
 }

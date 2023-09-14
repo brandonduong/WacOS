@@ -14,7 +14,7 @@ export default function TaskBar() {
   }
 
   return (
-    <div className="absolute bottom-0 pl-2 py-1 bg-fuchsia-200 w-screen border-white border-t-2 z-50 flex items-center">
+    <div className="absolute font-visitor bottom-0 pl-2 py-1 bg-fuchsia-200 w-screen border-white border-t-2 z-50 flex items-center">
       <CustomButton
         handleClick={handleClick}
         title={"START"}

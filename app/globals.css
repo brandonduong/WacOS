@@ -14,3 +14,16 @@ body {
   background-repeat: round;
   overflow: hidden;
 }
+
+@font-face {
+  font-family: "Visitor";
+  src: url("../public/fonts/visitor/visitor1.ttf"); /* IE9 Compat Modes */
+  src: url("../public/fonts/visitor/VisitorTT1BRK.eot")
+      format("embedded-opentype"),
+    /* IE6-IE8 */ url("../public/fonts/visitor/VisitorTT1BRK.woff")
+      format("woff"),
+    /* Modern Browsers */ url("../public/fonts/visitor/visitor1.ttf")
+      format("truetype"),
+    /* Safari, Android, iOS */ url("../public/fonts/visitor/VisitorTT1BRK.svg")
+      format("svg"); /* Legacy iOS */
+}

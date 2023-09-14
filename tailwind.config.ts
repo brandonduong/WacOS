@@ -19,6 +19,9 @@ const config: Config = {
       colors: {
         purple: "rgb(77, 35, 207)",
       },
+      fontFamily: {
+        visitor: "Visitor",
+      },
     },
   },
   plugins: [],
