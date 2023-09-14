@@ -78,7 +78,7 @@ function Application({ Node, ...props }: IApplicationProps) {
           height: isFullscreen ? "calc(100vh - 50px)" : "100%",
         }}
         className={clsx(
-          "z-10 flex flex-col items-center border-2 border-purple pt-1 px-1 drop-shadow-3xl font-visitor",
+          "z-10 flex flex-col items-center border-2 border-purple pt-1 px-1 drop-shadow-3xl font-visitor select-none",
           { "bg-cyan-200": focused === props.title },
           { "bg-slate-200": focused !== props.title }
         )}
