@@ -6,7 +6,13 @@ export default function Date() {
 
   return (
     <div className="px-2 py-1 border-2 border-t-purple border-l-purple border-b-white border-r-white flex items-center">
-      <Image src={`/icons/${time}.png`} width={24} height={24} alt={time} />
+      <Image
+        src={`/icons/${time}.png`}
+        width={24}
+        height={24}
+        alt={time}
+        draggable={false}
+      />
       <text className="ml-4 mr-2 text-lg leading-4">DAY {day}</text>
     </div>
   );

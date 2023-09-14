@@ -12,7 +12,7 @@ export const AppsOnDesktop: {
   },
   {
     title: "Task Manager",
-    id: "task",
+    id: "task manager",
     icon: "/icons/text.png",
   },
   {
