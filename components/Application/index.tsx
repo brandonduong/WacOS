@@ -98,7 +98,7 @@ function Application({ Node, ...props }: IApplicationProps) {
               "opacity-0": loading === true,
             })}
           >
-            {props.title}
+            {props.name}
           </span>
 
           <div className="ml-auto flex w-fit gap-1 p-1">

@@ -6,7 +6,7 @@ import { animate } from "framer-motion/dom";
 
 const APPLICATIONS = {
   clock: lazy(() => import("../components/Apps/Clock")),
-  "task manager": lazy(() => import("../components/Apps/TaskManager/index")),
+  task: lazy(() => import("../components/Apps/TaskManager/index")),
   email: lazy(() => import("../components/Apps/Email/index")),
   messenger: lazy(() => import("../components/Apps/Clock")),
 };
@@ -15,6 +15,7 @@ export type ApplicationName = keyof typeof APPLICATIONS;
 
 interface AddAppProps {
   name: ApplicationName;
+  title: string;
   x?: number;
   y?: number;
   width?: number;
@@ -50,13 +51,22 @@ const ApplicationProvider = ({ children }: { children: ReactNode }) => {
   const wWidth = useWindowSize().width;
   const wHeight = useWindowSize().height;
 
-  const addApp = ({ name, x, y, width, height, minimized }: AddAppProps) => {
+  const addApp = ({
+    name,
+    title,
+    x,
+    y,
+    width,
+    height,
+    minimized,
+  }: AddAppProps) => {
     // Only allow 1 instance open
     if (!apps.find((app) => app.title === name)) {
       const Comp = APPLICATIONS[name];
 
       const app: App = {
         Node: Comp,
+        name: title,
         title: name,
         start: Date.now(),
         x: x || wWidth / 2 - initialSize.width / 2,

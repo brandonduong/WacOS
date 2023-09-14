@@ -2,7 +2,13 @@ import { animate } from "framer-motion";
 import { useApps } from "@/hooks/useApp";
 import CustomButton from "../CustomButton";
 
-export default function ApplicationButton({ title }: { title: string }) {
+export default function ApplicationButton({
+  title,
+  name,
+}: {
+  title: string;
+  name: string;
+}) {
   const { apps, getIndex, setMinimized, setForwardsHistory, minimize } =
     useApps();
   const app = apps[getIndex(title)];
@@ -35,7 +41,7 @@ export default function ApplicationButton({ title }: { title: string }) {
       title={
         <>
           <div className="mx-1 h-4 w-4 bg-purple"></div>
-          {title}
+          {name}
         </>
       }
       clicked={!app.minimized}

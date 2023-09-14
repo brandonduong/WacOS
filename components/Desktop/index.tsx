@@ -20,7 +20,7 @@ export default function Desktop() {
           key={app.id}
           icon={app.icon}
           isDraggable
-          onDoubleClick={() => addApp({ name: app.id })}
+          onDoubleClick={() => addApp({ name: app.id, title: app.title })}
           width={80}
           height={80}
           defaultPosition={{ x: 10, y: 100 * index + 10 }}
