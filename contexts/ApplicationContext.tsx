@@ -5,11 +5,11 @@ import { useWindowSize } from "react-use";
 import { animate } from "framer-motion/dom";
 
 const APPLICATIONS = {
-  clock: lazy(() => import("../components/Apps/Clock")),
+  clock: lazy(() => import("../components/Apps/Clock/index")),
   task: lazy(() => import("../components/Apps/TaskManager/index")),
   email: lazy(() => import("../components/Apps/Email/index")),
-  messenger: lazy(() => import("../components/Apps/Clock")),
-  internet: lazy(() => import("../components/Apps/Clock")),
+  messenger: lazy(() => import("../components/Apps/Clock/index")),
+  internet: lazy(() => import("../components/Apps/Clock/index")),
 };
 
 export type ApplicationName = keyof typeof APPLICATIONS;
