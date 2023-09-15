@@ -1,23 +1,7 @@
 import Image from "next/image";
+import Sleep from "./Sleep";
 
 export default function Clock() {
-  function TimeIcon(time: string) {
-    return (
-      <div className="flex flex-col items-center">
-        <Image
-          src={`/icons/${time}.png`}
-          width={48}
-          height={48}
-          alt={time}
-          draggable={false}
-          className="mb-2"
-        />
-        <span className="leading-3">Sleep Until</span>
-        <span className="leading-3 capitalize">{time}</span>
-      </div>
-    );
-  }
-
   return (
     <>
       <div className="flex items-center">
@@ -36,9 +20,9 @@ export default function Clock() {
         </span>
       </div>
       <div className="ml-20 mr-10 mb-5 pl-2 grid grid-cols-3 gap-8 text-cpurple">
-        {TimeIcon("noon")}
-        {TimeIcon("night")}
-        {TimeIcon("morning")}
+        <Sleep newTime="noon" />
+        <Sleep newTime="night" />
+        <Sleep newTime="morning" />
       </div>
     </>
   );

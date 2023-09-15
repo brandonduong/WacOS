@@ -1,16 +1,20 @@
 import { createContext, useState, ReactNode, useMemo } from "react";
 
-const TIME = {
-  morning: "morning",
-  noon: "noon",
-  night: "night",
+export const TIME = {
+  morning: 0,
+  noon: 1,
+  night: 2,
 };
 
+export type Time = keyof typeof TIME;
+
 export interface GameType {
-  time: string;
+  time: Time;
   day: number;
   stats: StatsType;
   setStats: (stats: StatsType) => void;
+  setTime: (time: Time) => void;
+  setDay: (day: number) => void;
 }
 
 interface StatsType {
@@ -23,7 +27,7 @@ interface StatsType {
 const GameContext = createContext<GameType>({} as GameType);
 
 const GameProvider = ({ children }: { children: ReactNode }) => {
-  const [time, setTime] = useState(TIME.morning);
+  const [time, setTime] = useState<Time>("morning");
   const [day, setDay] = useState(1);
   const [stats, setStats] = useState<StatsType>({
     rejections: 0,
@@ -38,6 +42,8 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
       day,
       stats,
       setStats,
+      setTime,
+      setDay,
     }),
     [time, day, stats]
   );
