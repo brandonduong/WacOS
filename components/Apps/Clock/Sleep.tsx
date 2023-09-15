@@ -8,7 +8,7 @@ interface Props {
   newTime: Time;
 }
 export default function Sleep({ newTime }: Props) {
-  const { setTime, setDay, day, time } = useGame();
+  const { setTime, setDay, day, time, load } = useGame();
   const { removeApp } = useApps();
   const disabled = newTime !== "morning" && TIME[time] >= TIME[newTime];
 
@@ -16,6 +16,7 @@ export default function Sleep({ newTime }: Props) {
     setTime(newTime);
     if (newTime === "morning") {
       setDay(day + 1);
+      load();
     }
     removeApp("clock"); // Close window after sleeping
   }

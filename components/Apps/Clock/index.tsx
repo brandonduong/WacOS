@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Sleep from "./Sleep";
 
 export default function Clock() {

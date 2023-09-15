@@ -15,6 +15,8 @@ export interface GameType {
   setStats: (stats: StatsType) => void;
   setTime: (time: Time) => void;
   setDay: (day: number) => void;
+  loading: boolean;
+  load: () => void;
 }
 
 interface StatsType {
@@ -36,6 +38,15 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     guilt: 5,
   });
 
+  const [loading, setLoading] = useState(false);
+
+  function load() {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }
+
   const value = useMemo(
     () => ({
       time,
@@ -44,8 +55,10 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
       setStats,
       setTime,
       setDay,
+      loading,
+      load,
     }),
-    [time, day, stats]
+    [time, day, stats, loading]
   );
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
