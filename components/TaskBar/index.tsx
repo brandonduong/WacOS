@@ -24,7 +24,7 @@ export default function TaskBar() {
           className="px-6"
         />
 
-        <div className="mr-2 pr-1 border-2 border-b-purple border-r-purple border-t-white border-l-white h-8"></div>
+        <div className="mr-2 pr-1 border-2 border-b-cpurple border-r-cpurple border-t-white border-l-white h-8"></div>
 
         {apps.map((app) => (
           <ApplicationButton

@@ -28,8 +28,8 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
   const [stats, setStats] = useState<StatsType>({
     rejections: 0,
     energy: 100,
-    stress: 0,
-    guilt: 0,
+    stress: 10,
+    guilt: 5,
   });
 
   const value = useMemo(

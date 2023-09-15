@@ -66,9 +66,9 @@ export default function Task({ title, value, graph }: Props) {
         </div>
         <div
           className={clsx(
-            "text-purple",
+            "text-cpurple",
             { "text-6xl leading-8": !graph },
-            { "ml-4 text-4xl leading-5 text-end": graph }
+            { "ml-4 text-3xl leading-5 text-end": graph }
           )}
         >
           {value}
@@ -79,7 +79,7 @@ export default function Task({ title, value, graph }: Props) {
       </div>
 
       {graph && (
-        <div className="w-full h-11">
+        <div className="w-full h-11 bg-purple-300">
           <Chart
             type={"line"}
             width={"100%"}

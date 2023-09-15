@@ -40,7 +40,7 @@ export default function ApplicationButton({
       handleClick={handleClick}
       title={
         <>
-          <div className="mx-1 h-4 w-4 bg-purple"></div>
+          <div className="mx-1 h-4 w-4 bg-cpurple"></div>
           {name}
         </>
       }

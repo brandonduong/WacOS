@@ -17,7 +17,7 @@ const config: Config = {
         "3xl": "4px 4px 0px rgb(90, 42, 213, 0.5)",
       },
       colors: {
-        purple: "rgb(77, 35, 207)",
+        cpurple: "rgb(77, 35, 207)",
       },
       fontFamily: {
         visitor: "Visitor",

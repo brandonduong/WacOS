@@ -14,17 +14,17 @@ export default function CustomButton({
   className,
 }: Props) {
   return (
-    <div className="mr-2 text-purple">
+    <div className="mr-2 text-cpurple">
       <button
         className={clsx(
           className,
           "p-1 border-2 hover:bg-fuchsia-100 capitalize flex items-center",
           {
-            "border-t-purple border-l-purple border-b-white border-r-white":
+            "border-t-cpurple border-l-cpurple border-b-white border-r-white":
               clicked,
           },
           {
-            "border-b-purple border-r-purple border-t-white border-l-white":
+            "border-b-cpurple border-r-cpurple border-t-white border-l-white":
               !clicked,
           }
         )}

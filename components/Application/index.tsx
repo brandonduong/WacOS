@@ -78,21 +78,21 @@ function Application({ Node, ...props }: IApplicationProps) {
           height: isFullscreen ? "calc(100vh - 50px)" : "100%",
         }}
         className={clsx(
-          "z-10 flex flex-col items-center border-2 border-purple pt-1 px-1 drop-shadow-3xl font-visitor select-none",
+          "z-10 flex flex-col items-center border-2 border-cpurple pt-1 px-1 drop-shadow-3xl font-visitor select-none",
           { "bg-cyan-200": focused === props.title },
           { "bg-slate-200": focused !== props.title }
         )}
       >
         <div
           className={clsx(
-            "z-30 mt-0 flex w-full select-none items-center border-2 border-purple text-purple mb-1",
+            "z-30 mt-0 flex w-full select-none items-center border-2 border-cpurple text-cpurple mb-1",
             { "bg-fuchsia-200": focused === props.title },
             { "bg-slate-200": focused !== props.title }
           )}
           onPointerDown={move}
           onPointerUp={() => setDrag(false)}
         >
-          <div className="mx-1 h-4 w-4 bg-purple"></div>
+          <div className="mx-1 h-4 w-4 bg-cpurple"></div>
           <span
             className={clsx("block capitalize", {
               "opacity-0": loading === true,
@@ -104,7 +104,7 @@ function Application({ Node, ...props }: IApplicationProps) {
           <div className="ml-auto flex w-fit gap-1 p-1">
             <button
               className={clsx(
-                "flex h-5 w-5 pl-[2px] pb-[1px] items-center justify-center border-2 border-purple text-2xl",
+                "flex h-5 w-5 pl-[2px] pb-[1px] items-center justify-center border-2 border-cpurple text-2xl",
                 {
                   "bg-fuchsia-200 hover:bg-fuchsia-100":
                     focused === props.title,
@@ -119,7 +119,7 @@ function Application({ Node, ...props }: IApplicationProps) {
               <button
                 onClick={handleFullscreen}
                 className={clsx(
-                  "flex h-5 w-5 pl-[2px] pb-[1px] items-center justify-center border-2 border-purple text-2xl",
+                  "flex h-5 w-5 pl-[2px] pb-[1px] items-center justify-center border-2 border-cpurple text-2xl",
                   {
                     "bg-fuchsia-200 hover:bg-fuchsia-100":
                       focused === props.title,
@@ -132,7 +132,7 @@ function Application({ Node, ...props }: IApplicationProps) {
             )}
             <button
               className={clsx(
-                "flex h-5 w-5 pl-[3.5px] items-center justify-center border-2 border-purple text-4xl",
+                "flex h-5 w-5 pl-[3.5px] items-center justify-center border-2 border-cpurple text-4xl",
                 {
                   "bg-fuchsia-200 hover:bg-fuchsia-100":
                     focused === props.title,
@@ -147,7 +147,7 @@ function Application({ Node, ...props }: IApplicationProps) {
         </div>
         <div
           className={clsx(
-            "flex w-full flex-col items-center justify-center overflow-hidden border-2 border-purple bg-white",
+            "flex w-full flex-col items-center justify-center overflow-hidden border-2 border-cpurple bg-white",
             { "h-full": isFullscreen }
           )}
         >
@@ -170,10 +170,10 @@ function Application({ Node, ...props }: IApplicationProps) {
         </div>
 
         <div className="flex w-full">
-          <div className="mt-2 mr-1 px-6 pb-1 border-t-2 border-x-2 border-purple bg-fuchsia-300"></div>
-          <div className="mt-2 mb-1 mr-1 pl-1 pt-1 border-2 border-purple"></div>
-          <div className="mt-2 mb-1 mr-1 pl-1 pt-1 border-2 border-purple"></div>
-          <div className="mt-2 mb-1 mr-1 pl-1 pt-1 border-2 border-purple"></div>
+          <div className="mt-2 mr-1 px-6 pb-1 border-t-2 border-x-2 border-cpurple bg-fuchsia-300"></div>
+          <div className="mt-2 mb-1 mr-1 pl-1 pt-1 border-2 border-cpurple"></div>
+          <div className="mt-2 mb-1 mr-1 pl-1 pt-1 border-2 border-cpurple"></div>
+          <div className="mt-2 mb-1 mr-1 pl-1 pt-1 border-2 border-cpurple"></div>
         </div>
       </div>
     </Draggable>
