@@ -14,6 +14,7 @@ interface App {
   height?: number;
 
   minimized: boolean;
+  scroll: boolean;
 }
 
 export type { App };

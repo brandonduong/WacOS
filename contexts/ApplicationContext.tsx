@@ -22,6 +22,7 @@ interface AddAppProps {
   width?: number;
   height?: number;
   minimized?: boolean;
+  scroll: boolean;
 }
 
 export interface ApplicationType {
@@ -60,6 +61,7 @@ const ApplicationProvider = ({ children }: { children: ReactNode }) => {
     width,
     height,
     minimized,
+    scroll,
   }: AddAppProps) => {
     // Only allow 1 instance open
     if (!apps.find((app) => app.title === name)) {
@@ -75,6 +77,7 @@ const ApplicationProvider = ({ children }: { children: ReactNode }) => {
         width: width || initialSize.width,
         height: height || initialSize.height,
         minimized: minimized || false,
+        scroll: scroll || false,
       };
 
       setApps([...apps, app]);

@@ -76,6 +76,8 @@ function Application({ Node, ...props }: IApplicationProps) {
         style={{
           width: isFullscreen ? "100vw" : "100%",
           height: isFullscreen ? "calc(100vh - 50px)" : "100%",
+          maxWidth: isFullscreen ? "100vw" : initialSize.width,
+          maxHeight: isFullscreen ? "100vh" : initialSize.height,
         }}
         className={clsx(
           "z-10 flex flex-col items-center border-2 border-cpurple pt-1 px-1 drop-shadow-3xl font-visitor select-none",
@@ -147,7 +149,7 @@ function Application({ Node, ...props }: IApplicationProps) {
         </div>
         <div
           className={clsx(
-            "flex w-full flex-col items-center justify-center overflow-hidden border-2 border-cpurple bg-white",
+            "flex w-full flex-col items-center overflow-hidden border-2 border-cpurple bg-white",
             { "h-full": isFullscreen }
           )}
         >
@@ -161,7 +163,9 @@ function Application({ Node, ...props }: IApplicationProps) {
             <div
               className={clsx(
                 "h-full w-full p-2 bg-purple-50",
-                loading ? "opacity-0" : "opacity-100"
+
+                loading ? "opacity-0" : "opacity-100",
+                { "overflow-y-scroll": props.scroll }
               )}
             >
               <AppWrapper Node={Node} appID={props.title} />

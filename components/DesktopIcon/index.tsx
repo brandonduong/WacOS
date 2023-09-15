@@ -107,7 +107,7 @@ export default function DesktopIcon({
         className={clsx(
           "flex h-fit w-fit flex-col items-center justify-center p-2",
           {
-            "bg-black": showAppBg,
+            "bg-purple-300": showAppBg,
           }
         )}
         id={`icon-${id}`}
@@ -123,7 +123,7 @@ export default function DesktopIcon({
         <strong
           style={{ width: width * 1.2, fontSize: "0.85rem" }}
           className={clsx(
-            "whitespace-nowrap text-center text-purple font-visitor",
+            "whitespace-nowrap text-center text-cpurple font-visitor",
             {
               "text-white": showAppBg,
             }

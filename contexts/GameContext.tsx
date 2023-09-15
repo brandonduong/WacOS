@@ -1,4 +1,11 @@
-import { createContext, useState, ReactNode, useMemo } from "react";
+import {
+  EMAILS,
+  FAKE_FIRST,
+  FAKE_LAST,
+  REJECT_MESSAGES,
+  REJECT_SUBJECTS,
+} from "@/constants/emails";
+import { createContext, useState, ReactNode, useMemo, useEffect } from "react";
 
 export const TIME = {
   morning: 0,
@@ -17,6 +24,7 @@ export interface GameType {
   setDay: (day: number) => void;
   loading: boolean;
   load: () => void;
+  emails: EmailType[];
 }
 
 interface StatsType {
@@ -24,6 +32,14 @@ interface StatsType {
   energy: number;
   stress: number;
   guilt: number;
+}
+
+interface EmailType {
+  author: string;
+  message: string;
+  subject: string;
+  opened: boolean;
+  id: string;
 }
 
 const GameContext = createContext<GameType>({} as GameType);
@@ -39,12 +55,31 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [emails, setEmails] = useState<EmailType[]>([]);
+
+  useEffect(() => {
+    setEmails([generateRejection(), generateRejection(), generateRejection()]);
+  }, []);
 
   function load() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
     }, 1000);
+  }
+
+  function getRandom(constList: string[]) {
+    return constList[Math.floor(Math.random() * constList.length)];
+  }
+
+  function generateRejection(): EmailType {
+    return {
+      author: `${getRandom(FAKE_FIRST)} ${getRandom(FAKE_LAST)}`,
+      message: getRandom(REJECT_MESSAGES),
+      subject: getRandom(REJECT_SUBJECTS),
+      opened: false,
+      id: `${getRandom(FAKE_FIRST)}${getRandom(FAKE_LAST)}`,
+    };
   }
 
   const value = useMemo(
@@ -57,8 +92,9 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
       setDay,
       loading,
       load,
+      emails,
     }),
-    [time, day, stats, loading]
+    [time, day, stats, loading, emails]
   );
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;

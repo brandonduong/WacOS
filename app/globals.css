@@ -8,7 +8,7 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-main {
+body {
   color: rgb(var(--foreground-rgb));
   background-image: url("/background.png");
   background-repeat: round;
