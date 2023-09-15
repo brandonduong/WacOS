@@ -7,12 +7,6 @@ export const AppsOnDesktop: {
   scroll: boolean;
 }[] = [
   {
-    title: "Clock",
-    id: "clock",
-    icon: "/icons/clock.png",
-    scroll: false,
-  },
-  {
     title: "Task Manager",
     id: "task",
     icon: "/icons/text.png",
@@ -24,6 +18,13 @@ export const AppsOnDesktop: {
     icon: "/icons/email.png",
     scroll: true,
   },
+
+  {
+    title: "Internet",
+    id: "internet",
+    icon: "/icons/internet.png",
+    scroll: true,
+  },
   {
     title: "Messenger",
     id: "messenger",
@@ -31,9 +32,9 @@ export const AppsOnDesktop: {
     scroll: true,
   },
   {
-    title: "Internet",
-    id: "internet",
-    icon: "/icons/internet.png",
-    scroll: true,
+    title: "Clock",
+    id: "clock",
+    icon: "/icons/clock.png",
+    scroll: false,
   },
 ];

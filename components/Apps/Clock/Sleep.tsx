@@ -8,15 +8,14 @@ interface Props {
   newTime: Time;
 }
 export default function Sleep({ newTime }: Props) {
-  const { setTime, setDay, day, time, load } = useGame();
+  const { setTime, nextDay, time } = useGame();
   const { removeApp } = useApps();
   const disabled = newTime !== "morning" && TIME[time] >= TIME[newTime];
 
   function handleClick() {
     setTime(newTime);
     if (newTime === "morning") {
-      setDay(day + 1);
-      load();
+      nextDay();
     }
     removeApp("clock"); // Close window after sleeping
   }

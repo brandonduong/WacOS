@@ -9,6 +9,7 @@ import {
   UNPROFESSIONAL_GREETINGS,
   UNPROFESSIONAL_REJECT_MESSAGES,
 } from "@/constants/emails";
+import { STORY } from "@/constants/story";
 import { createContext, useState, ReactNode, useMemo, useEffect } from "react";
 
 export const TIME = {
@@ -25,7 +26,7 @@ export interface GameType {
   stats: StatsType;
   setStats: (stats: StatsType) => void;
   setTime: (time: Time) => void;
-  setDay: (day: number) => void;
+  nextDay: () => void;
   loading: boolean;
   load: () => void;
   emails: EmailType[];
@@ -59,11 +60,21 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [emails, setEmails] = useState<EmailType[]>([]);
+  const [emails, setEmails] = useState<EmailType[]>([STORY[0]]);
 
-  useEffect(() => {
-    setEmails([generateRejection(), generateRejection(), generateRejection()]);
-  }, []);
+  function nextDay() {
+    setDay(day + 1);
+
+    // Get new emails in response to applications
+    setEmails([generateRejection(), ...emails]);
+
+    // Gain guilt if have left over energy
+    const guiltMod =
+      stats.energy > 60 ? 5 : stats.energy > 30 ? 3 : stats.energy > 10 ? 1 : 0;
+    setStats({ ...stats, guilt: stats.guilt + guiltMod });
+
+    load();
+  }
 
   function load() {
     setLoading(true);
@@ -77,29 +88,26 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
   }
 
   function generateRejection(): EmailType {
-    switch (Math.floor(Math.random() * 2)) {
-      case 0:
-        return {
-          author: `${getRandom(FAKE_FIRST)} ${getRandom(FAKE_LAST)}`,
-          message: `${getRandom(GREETINGS)}\n${getRandom(
-            REJECT_MESSAGES
-          )}\n${getRandom(BYES)}`,
-          subject: getRandom(REJECT_SUBJECTS),
-          opened: false,
-          id: `${getRandom(FAKE_FIRST)}${getRandom(FAKE_LAST)}`,
-        };
-
-      default:
-        return {
-          author: `${getRandom(FAKE_FIRST)} ${getRandom(FAKE_LAST)}`,
-          message: `${getRandom(UNPROFESSIONAL_GREETINGS)}\n${getRandom(
-            UNPROFESSIONAL_REJECT_MESSAGES
-          )}\n${getRandom(UNPROFESSIONAL_BYES)}`,
-          subject: getRandom(REJECT_SUBJECTS),
-          opened: false,
-          id: `${getRandom(FAKE_FIRST)}${getRandom(FAKE_LAST)}`,
-        };
-    }
+    if (Math.floor(Math.random() * 10) <= 7) {
+      return {
+        author: `${getRandom(FAKE_FIRST)} ${getRandom(FAKE_LAST)}`,
+        message: `${getRandom(GREETINGS)}\n${getRandom(
+          REJECT_MESSAGES
+        )}\n${getRandom(BYES)}`,
+        subject: getRandom(REJECT_SUBJECTS),
+        opened: false,
+        id: `${getRandom(FAKE_FIRST)}${getRandom(FAKE_LAST)}`,
+      };
+    } else
+      return {
+        author: `${getRandom(FAKE_FIRST)} ${getRandom(FAKE_LAST)}`,
+        message: `${getRandom(UNPROFESSIONAL_GREETINGS)}\n${getRandom(
+          UNPROFESSIONAL_REJECT_MESSAGES
+        )}\n${getRandom(UNPROFESSIONAL_BYES)}`,
+        subject: getRandom(REJECT_SUBJECTS),
+        opened: false,
+        id: `${getRandom(FAKE_FIRST)}${getRandom(FAKE_LAST)}`,
+      };
   }
 
   const value = useMemo(
@@ -109,7 +117,7 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
       stats,
       setStats,
       setTime,
-      setDay,
+      nextDay,
       loading,
       load,
       emails,
