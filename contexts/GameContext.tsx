@@ -1,9 +1,13 @@
 import {
-  EMAILS,
+  BYES,
   FAKE_FIRST,
   FAKE_LAST,
+  GREETINGS,
   REJECT_MESSAGES,
   REJECT_SUBJECTS,
+  UNPROFESSIONAL_BYES,
+  UNPROFESSIONAL_GREETINGS,
+  UNPROFESSIONAL_REJECT_MESSAGES,
 } from "@/constants/emails";
 import { createContext, useState, ReactNode, useMemo, useEffect } from "react";
 
@@ -73,13 +77,29 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
   }
 
   function generateRejection(): EmailType {
-    return {
-      author: `${getRandom(FAKE_FIRST)} ${getRandom(FAKE_LAST)}`,
-      message: getRandom(REJECT_MESSAGES),
-      subject: getRandom(REJECT_SUBJECTS),
-      opened: false,
-      id: `${getRandom(FAKE_FIRST)}${getRandom(FAKE_LAST)}`,
-    };
+    switch (Math.floor(Math.random() * 2)) {
+      case 0:
+        return {
+          author: `${getRandom(FAKE_FIRST)} ${getRandom(FAKE_LAST)}`,
+          message: `${getRandom(GREETINGS)}\n${getRandom(
+            REJECT_MESSAGES
+          )}\n${getRandom(BYES)}`,
+          subject: getRandom(REJECT_SUBJECTS),
+          opened: false,
+          id: `${getRandom(FAKE_FIRST)}${getRandom(FAKE_LAST)}`,
+        };
+
+      default:
+        return {
+          author: `${getRandom(FAKE_FIRST)} ${getRandom(FAKE_LAST)}`,
+          message: `${getRandom(UNPROFESSIONAL_GREETINGS)}\n${getRandom(
+            UNPROFESSIONAL_REJECT_MESSAGES
+          )}\n${getRandom(UNPROFESSIONAL_BYES)}`,
+          subject: getRandom(REJECT_SUBJECTS),
+          opened: false,
+          id: `${getRandom(FAKE_FIRST)}${getRandom(FAKE_LAST)}`,
+        };
+    }
   }
 
   const value = useMemo(

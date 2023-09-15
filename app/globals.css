@@ -15,6 +15,18 @@ body {
   overflow: hidden;
 }
 
+::-webkit-scrollbar {
+  width: 1.25rem;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(226, 232, 240);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(240, 171, 252);
+}
+
 @font-face {
   font-family: "Visitor";
   src: url("../public/fonts/visitor/visitor1.ttf"); /* IE9 Compat Modes */

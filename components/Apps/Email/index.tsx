@@ -13,6 +13,13 @@ export default function Email() {
     setIsResizable(true);
   }, []);
 
+  function parseEmail() {
+    return selectedEmail!.message.replaceAll(
+      "[Fake Recruiter Name]",
+      selectedEmail!.author
+    );
+  }
+
   return (
     <>
       <div className="grid grid-cols-5 gap-2 h-full">
@@ -37,7 +44,15 @@ export default function Email() {
               <div style={{ color: "rgb(94, 178, 222)" }}>
                 {selectedEmail.subject}
               </div>
-              {selectedEmail.message}
+              <div>
+                {parseEmail()
+                  .split("\n")
+                  .map((line) => (
+                    <div key={line} className="mt-4">
+                      {line}
+                    </div>
+                  ))}
+              </div>
             </>
           )}
         </div>

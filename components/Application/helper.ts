@@ -5,7 +5,7 @@ export function useWindowContext() {
   const screen = useWindowSize();
   const [isResizable, setIsResizable] = useState(false);
   const [initialSize, setInitialSize] = useState({
-    width: (screen.width * 3) / 4,
+    width: (screen.width * 3) / 5,
     height: (screen.height * 3) / 4,
   });
 

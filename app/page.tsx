@@ -13,7 +13,7 @@ export default function Home() {
     const { loading } = useGame();
     return (
       <main
-        className={clsx("min-h-screen", {
+        className={clsx("min-h-screen transition-all", {
           "contrast-50 pointer-events-none": loading,
         })}
       >
