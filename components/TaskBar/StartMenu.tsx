@@ -1,6 +1,11 @@
 import { getAuth, signOut } from "firebase/auth";
 
-function StartButton({ title, onClick }: { title: string; onClick }) {
+interface Props {
+  title: string;
+  onClick: () => void;
+}
+
+function StartButton({ title, onClick }: Props) {
   return (
     <div
       onClick={onClick}
