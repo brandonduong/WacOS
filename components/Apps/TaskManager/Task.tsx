@@ -73,7 +73,7 @@ export default function Task({ title, value, graph }: Props) {
         >
           {value}
           {graph && (
-            <text className="text-slate-400 text-2xl leading-3">/100</text>
+            <span className="text-slate-400 text-2xl leading-3">/100</span>
           )}
         </div>
       </div>

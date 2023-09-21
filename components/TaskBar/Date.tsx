@@ -13,7 +13,7 @@ export default function Date() {
         alt={time}
         draggable={false}
       />
-      <text className="ml-4 mr-2 text-lg leading-4">DAY {day}</text>
+      <span className="ml-4 mr-2 text-lg leading-4">DAY {day}</span>
     </div>
   );
 }

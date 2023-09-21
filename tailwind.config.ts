@@ -18,6 +18,7 @@ const config: Config = {
       },
       colors: {
         cpurple: "rgb(77, 35, 207)",
+        cpurplelight: "rgb(100, 59, 222)",
       },
       fontFamily: {
         visitor: "Visitor",
