@@ -1,4 +1,5 @@
-import { getAuth, signOut } from "firebase/auth";
+import { auth } from "@/firebase";
+import { signOut } from "firebase/auth";
 
 interface Props {
   title: string;
@@ -17,7 +18,6 @@ function StartButton({ title, onClick }: Props) {
 }
 
 export default function StartMenu() {
-  const auth = getAuth();
   function handleShutdown() {
     signOut(auth);
   }
@@ -25,8 +25,11 @@ export default function StartMenu() {
   return (
     <div className="absolute bottom-11 left-0 border-b-2 border-b-white">
       <div className="flex items-stretch">
-        <div className="w-2 bg-purple-300"></div>
+        <div className="w-2 bg-purple-300 border-t-2 border-r-2 border-t-white border-r-purple-300"></div>
         <div className="flex flex-col">
+          <div className="px-6 py-1 border-2 border-purple-300 border-t-white border-l-white bg-purple-300 text-white text-center">
+            {auth.currentUser?.displayName}
+          </div>
           <StartButton
             title="Control Panel"
             onClick={() => console.log("settings")}

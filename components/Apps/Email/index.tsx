@@ -2,12 +2,14 @@ import { useWindow } from "@/contexts/WindowContext";
 import { useGame } from "@/hooks/useGame";
 import { useEffect, useState } from "react";
 import EmailButton from "./EmailButton";
+import { useWindowSize } from "react-use";
 
 export default function Email() {
   const { emails } = useGame();
   const [selected, setSelected] = useState(emails[0].id);
   const { setIsResizable } = useWindow();
   const selectedEmail = emails.find((email) => email.id === selected);
+  const { width, height } = useWindowSize();
 
   useEffect(() => {
     setIsResizable(true);
@@ -38,7 +40,10 @@ export default function Email() {
             </>
           ))}
         </div>
-        <div className="col-span-3 bg-fuchsia-200 border-2 border-cpurple p-2 text-cpurple">
+        <div
+          className="col-span-3 bg-fuchsia-200 border-2 border-cpurple p-2 text-cpurple"
+          style={{ minHeight: `${Math.round((height * 2) / 5)}px` }}
+        >
           {selectedEmail && (
             <>
               <div style={{ color: "rgb(94, 178, 222)" }}>

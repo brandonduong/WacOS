@@ -2,6 +2,7 @@ import { auth } from "@/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { useState } from "react";
 import CustomButton from "../CustomButton";
@@ -34,10 +35,14 @@ export default function Signup() {
 
   async function signup() {
     await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
         console.log(user);
+
+        await updateProfile(user, { displayName: username }).catch((err) =>
+          console.log(err)
+        );
       })
       .catch((error) => {
         const errorCode = error.code;
