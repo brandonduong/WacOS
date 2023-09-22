@@ -1,7 +1,6 @@
+import { TECH_COMPANIES } from "@/constants/companies";
 import {
   BYES,
-  FAKE_FIRST,
-  FAKE_LAST,
   GREETINGS,
   REJECT_MESSAGES,
   REJECT_SUBJECTS,
@@ -9,8 +8,13 @@ import {
   UNPROFESSIONAL_GREETINGS,
   UNPROFESSIONAL_REJECT_MESSAGES,
 } from "@/constants/emails";
+import { FAKE_FIRST } from "@/constants/firsts";
+import { FAKE_LAST } from "@/constants/lasts";
+import { LOCATIONS } from "@/constants/locations";
 import { STORY } from "@/constants/story";
-import { createContext, useState, ReactNode, useMemo, useEffect } from "react";
+import { TIMES } from "@/constants/times";
+import { TECH_TITLES } from "@/constants/titles";
+import { createContext, useState, ReactNode, useMemo } from "react";
 
 export const TIME = {
   morning: 0,
@@ -30,6 +34,7 @@ export interface GameType {
   loading: boolean;
   load: () => void;
   emails: EmailType[];
+  jobs: JobType[];
 }
 
 interface StatsType {
@@ -47,6 +52,18 @@ interface EmailType {
   id: string;
 }
 
+export interface JobType {
+  author: string;
+  message: string;
+  title: string;
+  company: string;
+  location: string;
+  applied: boolean;
+  id: string;
+  time: string;
+  people: number;
+}
+
 const GameContext = createContext<GameType>({} as GameType);
 
 const GameProvider = ({ children }: { children: ReactNode }) => {
@@ -61,12 +78,19 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
 
   const [loading, setLoading] = useState(false);
   const [emails, setEmails] = useState<EmailType[]>([STORY[0]]);
+  const [jobs, setJobs] = useState<JobType[]>([
+    generateJob(),
+    generateJob(),
+    generateJob(),
+  ]);
 
   function nextDay() {
     setDay(day + 1);
 
     // Get new emails in response to applications
     setEmails([generateRejection(), ...emails]);
+
+    // Generate new job postings
 
     // Gain guilt if have left over energy
     const guiltMod =
@@ -87,26 +111,48 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     return constList[Math.floor(Math.random() * constList.length)];
   }
 
+  function generateJob(): JobType {
+    const first = getRandom(FAKE_FIRST);
+    const last = getRandom(FAKE_LAST);
+    return {
+      author: `${first} ${last}`,
+      message: `job description`,
+      title: getRandom(TECH_TITLES),
+      applied: false,
+      id: `job-${first}-${last}`,
+      company: getRandom(TECH_COMPANIES),
+      location: `${rng(100)} ${getRandom(LOCATIONS)}`,
+      time: `${rng(30)} ${getRandom(TIMES)}`,
+      people: rng(1000),
+    };
+  }
+
+  function rng(maxNum: number) {
+    return Math.floor(Math.random() * maxNum);
+  }
+
   function generateRejection(): EmailType {
-    if (Math.floor(Math.random() * 10) <= 7) {
+    const first = getRandom(FAKE_FIRST);
+    const last = getRandom(FAKE_LAST);
+    if (rng(10) <= 7) {
       return {
-        author: `${getRandom(FAKE_FIRST)} ${getRandom(FAKE_LAST)}`,
+        author: `${first} ${last}`,
         message: `${getRandom(GREETINGS)}\n${getRandom(
           REJECT_MESSAGES
         )}\n${getRandom(BYES)}`,
         subject: getRandom(REJECT_SUBJECTS),
         opened: false,
-        id: `${getRandom(FAKE_FIRST)}${getRandom(FAKE_LAST)}`,
+        id: `reject-${first}-${last}`,
       };
     } else
       return {
-        author: `${getRandom(FAKE_FIRST)} ${getRandom(FAKE_LAST)}`,
+        author: `${first} ${last}`,
         message: `${getRandom(UNPROFESSIONAL_GREETINGS)}\n${getRandom(
           UNPROFESSIONAL_REJECT_MESSAGES
         )}\n${getRandom(UNPROFESSIONAL_BYES)}`,
         subject: getRandom(REJECT_SUBJECTS),
         opened: false,
-        id: `${getRandom(FAKE_FIRST)}${getRandom(FAKE_LAST)}`,
+        id: `reject-${first}-${last}`,
       };
   }
 
@@ -121,8 +167,9 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
       loading,
       load,
       emails,
+      jobs,
     }),
-    [time, day, stats, loading, emails]
+    [time, day, stats, loading, emails, jobs]
   );
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;

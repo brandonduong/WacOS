@@ -9,7 +9,7 @@ const APPLICATIONS = {
   task: lazy(() => import("../components/Apps/TaskManager/index")),
   email: lazy(() => import("../components/Apps/Email/index")),
   messenger: lazy(() => import("../components/Apps/Clock/index")),
-  internet: lazy(() => import("../components/Apps/Clock/index")),
+  internet: lazy(() => import("../components/Apps/Internet/index")),
 };
 
 export type ApplicationName = keyof typeof APPLICATIONS;

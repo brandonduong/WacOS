@@ -1,33 +1,3 @@
-export const FAKE_FIRST = [
-  "Emily",
-  "David",
-  "Samantha",
-  "Olivia",
-  "Ethan",
-  "Ava",
-  "William",
-  "Mitra",
-  "Janet",
-  "Sophia",
-  "Benjamin",
-  "Benjammin",
-];
-
-export const FAKE_LAST = [
-  "Johnson",
-  "Lee",
-  "Brown",
-  "Chen",
-  "Davis",
-  "Kim",
-  "Rodriguez",
-  "Nguyen",
-  "Patel",
-  "Garcia",
-  "Dabie",
-  "Jin",
-];
-
 export const REJECT_SUBJECTS = [
   "[Position Name] Role at [Fake Company Name]: Application Update",
   "Update on Your Application for [Position Name] at [Fake Company Name]",
