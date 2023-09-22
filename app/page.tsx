@@ -6,9 +6,10 @@ import TaskBar from "@/components/TaskBar";
 import GameProvider from "@/contexts/GameContext";
 import clsx from "clsx";
 import { useGame } from "@/hooks/useGame";
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Boot from "@/components/Boot";
+import LoadingScreen from "@/components/LoadingScreen";
 
 function OS({ children }: { children: ReactNode }) {
   const { loading } = useGame();
@@ -25,6 +26,11 @@ function OS({ children }: { children: ReactNode }) {
 
 export default function Home() {
   const [signedIn, setSignedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
 
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
@@ -45,7 +51,9 @@ export default function Home() {
     <GameProvider>
       <ApplicationProvider>
         <OS>
-          {signedIn ? (
+          {loading ? (
+            <LoadingScreen />
+          ) : signedIn ? (
             <>
               <Desktop />
               <TaskBar />
