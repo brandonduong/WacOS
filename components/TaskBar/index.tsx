@@ -22,7 +22,7 @@ export default function TaskBar() {
           handleClick={handleClick}
           title={"START"}
           clicked={start}
-          className="px-6"
+          className="px-6 mr-2"
         />
 
         <div className="mr-2 pr-1 border-2 border-b-cpurple border-r-cpurple border-t-white border-l-white h-8"></div>

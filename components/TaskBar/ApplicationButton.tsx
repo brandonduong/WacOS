@@ -45,7 +45,7 @@ export default function ApplicationButton({
         </>
       }
       clicked={!app.minimized}
-      className="w-48 text-start"
+      className="w-48 text-start mr-2"
     />
   );
 }

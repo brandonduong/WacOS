@@ -39,3 +39,9 @@ body {
     /* Safari, Android, iOS */ url("../public/fonts/visitor/VisitorTT1BRK.svg")
       format("svg"); /* Legacy iOS */
 }
+
+@font-face {
+  font-family: "VT323";
+  src: url("../public/fonts/VT323.ttf"); /* IE9 Compat Modes */
+  src: /* Modern Browsers */ url("../public/fonts/VT323.ttf") format("truetype");
+}

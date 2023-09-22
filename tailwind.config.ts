@@ -22,6 +22,7 @@ const config: Config = {
       },
       fontFamily: {
         visitor: "Visitor",
+        vt: "VT323",
       },
     },
   },
