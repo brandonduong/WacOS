@@ -9,6 +9,15 @@ import {
   UNPROFESSIONAL_REJECT_MESSAGES,
 } from "@/constants/emails";
 import { FAKE_FIRST } from "@/constants/firsts";
+import {
+  DESCRIPTION,
+  EDUCATION,
+  END,
+  EXPERIENCE,
+  OVERVIEW,
+  REQUIREMENTS,
+  RESPONSIBILITIES,
+} from "@/constants/jobs";
 import { FAKE_LAST } from "@/constants/lasts";
 import { LOCATIONS } from "@/constants/locations";
 import { STORY } from "@/constants/story";
@@ -116,7 +125,13 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     const last = getRandom(FAKE_LAST);
     return {
       author: `${first} ${last}`,
-      message: `job description`,
+      message: `${getRandom(OVERVIEW)}\n${getRandom(
+        DESCRIPTION
+      )}\nEducation: ${getRandom(EDUCATION)}\nExperience: ${getRandom(
+        EXPERIENCE
+      )}\nResponsibilities: ${getRandom(
+        RESPONSIBILITIES
+      )}\nRequirements: ${getRandom(REQUIREMENTS)}\n${getRandom(END)}`,
       title: getRandom(TECH_TITLES),
       applied: false,
       id: `job-${first}-${last}`,

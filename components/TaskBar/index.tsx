@@ -15,7 +15,7 @@ export default function TaskBar() {
   }
 
   return (
-    <div className="absolute font-visitor bottom-0 px-2 py-1 bg-fuchsia-200 w-screen border-white border-t-2 z-50 flex items-center justify-between">
+    <div className="absolute font-visitor bottom-0 px-2 py-1 bg-fuchsia-200 w-screen border-white border-t-2 z-50 flex items-center justify-between select-none">
       <div className="flex items-center">
         {start && <StartMenu />}
         <CustomButton
