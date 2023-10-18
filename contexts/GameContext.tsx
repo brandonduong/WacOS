@@ -30,6 +30,9 @@ export const TIME = {
   noon: 1,
   night: 2,
 };
+export const ENERGY_COSTS = {
+  apply: 40,
+};
 
 export type Time = keyof typeof TIME;
 
@@ -94,28 +97,6 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     generateJob(),
     generateJob(),
     generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
-    generateJob(),
   ]);
 
   function nextDay() {
@@ -170,11 +151,16 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
   function applyToJob(id: string): void {
     const ind = jobs.findIndex((job) => job.id === id);
     const old = jobs[ind];
+
+    // Update job list
     setJobs([
       ...jobs.slice(0, ind),
       { ...old, applied: true },
       ...jobs.slice(ind + 1),
     ]);
+
+    // Update stats
+    setStats({ ...stats, energy: stats.energy - ENERGY_COSTS.apply });
   }
 
   function rng(maxNum: number) {

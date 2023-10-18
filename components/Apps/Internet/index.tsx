@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useWindow } from "@/contexts/WindowContext";
 import CustomButton from "@/components/CustomButton";
 import clsx from "clsx";
+import { ENERGY_COSTS } from "@/contexts/GameContext";
 
 export default function Internet() {
   const { height } = useWindowSize();
@@ -25,7 +26,7 @@ export default function Internet() {
   }
 
   return (
-    <div className="grid grid-cols-5 gap-2 h-full">
+    <div className="grid grid-cols-5 gap-2 h-full items-start">
       <div className="col-span-2 grid grid-cols-1 auto-rows-min gap-2">
         {jobs.map((job) => (
           <JobButton
@@ -61,14 +62,20 @@ export default function Internet() {
                         !selectedJob.applied,
                     },
                     {
-                      "hover:cursor-disabled": selectedJob.applied,
+                      "hover:cursor-disabled":
+                        selectedJob.applied ||
+                        stats.energy < ENERGY_COSTS.apply,
                     }
                   )}
-                  onClick={() => applyToJob(selected)}
+                  onClick={() =>
+                    !selectedJob.applied &&
+                    stats.energy >= ENERGY_COSTS.apply &&
+                    applyToJob(selected)
+                  }
                 >
                   {selectedJob.applied
                     ? "Applied"
-                    : stats.energy > 20
+                    : stats.energy >= ENERGY_COSTS.apply
                     ? "Apply"
                     : "No Energy"}
                 </button>

@@ -15,7 +15,8 @@ export default function JobButton({ job, selected, handleClick }: Props) {
         {
           "border-cpurple": selected,
         },
-        { "border-purple-300": !selected }
+        { "border-purple-300": !selected },
+        { "bg-purple-300": job.applied }
       )}
       onClick={handleClick}
     >
