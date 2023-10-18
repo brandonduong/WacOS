@@ -42,9 +42,8 @@ export default function Email() {
               >
                 {selectedEmail && (
                   <>
-                    <div style={{ color: "rgb(94, 178, 222)" }}>
-                      {selectedEmail.subject}
-                    </div>
+                    <div className="text-ccyan">{selectedEmail.subject}</div>
+                    <div className="text-slate-400">{selectedEmail.author}</div>
                     <div>
                       {parseEmail()
                         .split("\n")

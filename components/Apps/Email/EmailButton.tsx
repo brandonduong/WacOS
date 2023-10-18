@@ -29,15 +29,12 @@ export default function EmailButton({
       onClick={handleClick}
     >
       <div className="grid grid-cols-3">
-        <span className="text-cpurple">{author}</span>
-        <span
-          className="truncate col-span-2 text-end"
-          style={{ color: "rgb(94, 178, 222)" }}
-        >
+        <span className="text-slate-400">{author}</span>
+        <span className="truncate col-span-2 text-end text-ccyan">
           {subject}
         </span>
       </div>
-      <div className="truncate text-slate-400">
+      <div className="truncate text-cpurple">
         <span>{message}</span>
       </div>
     </div>

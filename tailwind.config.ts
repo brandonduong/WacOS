@@ -19,6 +19,7 @@ const config: Config = {
       colors: {
         cpurple: "rgb(77, 35, 207)",
         cpurplelight: "rgb(100, 59, 222)",
+        ccyan: "rgb(94, 178, 222)",
       },
       fontFamily: {
         visitor: "Visitor",
@@ -26,6 +27,7 @@ const config: Config = {
       },
       cursor: {
         pointer: 'url("/cursor/nso_point.cur"), auto',
+        disabled: 'url("/cursor/nso_unavailable.cur"), auto',
       },
     },
   },

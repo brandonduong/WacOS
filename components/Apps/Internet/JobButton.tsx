@@ -20,15 +20,12 @@ export default function JobButton({ job, selected, handleClick }: Props) {
       onClick={handleClick}
     >
       <div className="grid grid-cols-3">
-        <span className="text-cpurple">{job.author}</span>
-        <span
-          className="truncate col-span-2 text-end"
-          style={{ color: "rgb(94, 178, 222)" }}
-        >
+        <span className="text-slate-400">{job.author}</span>
+        <span className="truncate col-span-2 text-end text-ccyan">
           {job.title}
         </span>
       </div>
-      <div className="truncate text-slate-400">
+      <div className="truncate text-cpurple">
         <span>{job.message}</span>
       </div>
     </div>

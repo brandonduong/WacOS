@@ -44,6 +44,7 @@ export interface GameType {
   load: () => void;
   emails: EmailType[];
   jobs: JobType[];
+  applyToJob: (id: string) => void;
 }
 
 interface StatsType {
@@ -88,6 +89,30 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
   const [emails, setEmails] = useState<EmailType[]>([STORY[0]]);
   const [jobs, setJobs] = useState<JobType[]>([
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
+    generateJob(),
     generateJob(),
     generateJob(),
     generateJob(),
@@ -142,6 +167,16 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     };
   }
 
+  function applyToJob(id: string): void {
+    const ind = jobs.findIndex((job) => job.id === id);
+    const old = jobs[ind];
+    setJobs([
+      ...jobs.slice(0, ind),
+      { ...old, applied: true },
+      ...jobs.slice(ind + 1),
+    ]);
+  }
+
   function rng(maxNum: number) {
     return Math.floor(Math.random() * maxNum);
   }
@@ -183,6 +218,7 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
       load,
       emails,
       jobs,
+      applyToJob,
     }),
     [time, day, stats, loading, emails, jobs]
   );
