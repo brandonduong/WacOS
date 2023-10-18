@@ -23,12 +23,11 @@ export default function Email() {
   }
 
   return (
-    <div className="grid grid-cols-5 gap-2 h-full">
-      <div className="col-span-2 grid grid-cols-1 auto-rows-min gap-2">
+    <div className="h-full">
+      <div className="">
         {emails.map((email) => (
-          <>
+          <div className="mb-2" key={`${email.author}-${email.subject}`}>
             <EmailButton
-              key={`${email.author}-${email.subject}`}
               author={email.author}
               message={email.message}
               subject={email.subject}
@@ -36,29 +35,31 @@ export default function Email() {
               selected={selected === email.id}
               handleClick={() => setSelected(email.id)}
             />
-          </>
+            {email.id === selected && (
+              <div
+                className="bg-fuchsia-200 border-2 border-t-0 border-cpurple p-2 text-cpurple"
+                style={{ minHeight: `${Math.round((height * 2) / 5)}px` }}
+              >
+                {selectedEmail && (
+                  <>
+                    <div style={{ color: "rgb(94, 178, 222)" }}>
+                      {selectedEmail.subject}
+                    </div>
+                    <div>
+                      {parseEmail()
+                        .split("\n")
+                        .map((line) => (
+                          <div key={line} className="mt-4">
+                            {line}
+                          </div>
+                        ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
         ))}
-      </div>
-      <div
-        className="col-span-3 bg-fuchsia-200 border-2 border-cpurple p-2 text-cpurple"
-        style={{ minHeight: `${Math.round((height * 2) / 5)}px` }}
-      >
-        {selectedEmail && (
-          <>
-            <div style={{ color: "rgb(94, 178, 222)" }}>
-              {selectedEmail.subject}
-            </div>
-            <div>
-              {parseEmail()
-                .split("\n")
-                .map((line) => (
-                  <div key={line} className="mt-4">
-                    {line}
-                  </div>
-                ))}
-            </div>
-          </>
-        )}
       </div>
     </div>
   );
