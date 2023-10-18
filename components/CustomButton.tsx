@@ -18,7 +18,7 @@ export default function CustomButton({
       <button
         className={clsx(
           className,
-          "p-1 border-2 hover:bg-fuchsia-100 capitalize flex items-center",
+          "p-1 border-2 hover:bg-fuchsia-100 capitalize flex items-center hover:cursor-pointer",
           {
             "border-t-cpurple border-l-cpurple border-b-white border-r-white":
               clicked,

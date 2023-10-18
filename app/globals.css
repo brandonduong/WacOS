@@ -13,6 +13,7 @@ body {
   background-image: url("/background.png");
   background-repeat: round;
   overflow: hidden;
+  cursor: url("/cursor/nso_cursor.cur"), auto;
 }
 
 ::-webkit-scrollbar {

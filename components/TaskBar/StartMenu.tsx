@@ -10,7 +10,7 @@ function StartButton({ title, onClick }: Props) {
   return (
     <div
       onClick={onClick}
-      className="px-6 py-1 border-2 border-purple-300 border-t-white border-l-white bg-fuchsia-200 hover:bg-cpurple hover:text-white text-cpurple text-center"
+      className="px-6 py-1 border-2 border-purple-300 border-t-white border-l-white bg-fuchsia-200 hover:bg-cpurple hover:text-white text-cpurple text-center hover:cursor-pointer"
     >
       {title}
     </div>

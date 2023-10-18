@@ -106,7 +106,7 @@ function Application({ Node, ...props }: IApplicationProps) {
           <div className="ml-auto flex w-fit gap-1 p-1">
             <button
               className={clsx(
-                "flex h-5 w-5 pl-[2px] pb-[1px] items-center justify-center border-2 border-cpurple text-2xl",
+                "flex h-5 w-5 pl-[2px] pb-[1px] items-center justify-center border-2 border-cpurple text-2xl hover:cursor-pointer",
                 {
                   "bg-fuchsia-200 hover:bg-fuchsia-100":
                     focused === props.title,
@@ -121,7 +121,7 @@ function Application({ Node, ...props }: IApplicationProps) {
               <button
                 onClick={handleFullscreen}
                 className={clsx(
-                  "flex h-5 w-5 pl-[2px] pb-[1px] items-center justify-center border-2 border-cpurple text-2xl",
+                  "flex h-5 w-5 pl-[2px] pb-[1px] items-center justify-center border-2 border-cpurple text-2xl hover:cursor-pointer",
                   {
                     "bg-fuchsia-200 hover:bg-fuchsia-100":
                       focused === props.title,
@@ -134,7 +134,7 @@ function Application({ Node, ...props }: IApplicationProps) {
             )}
             <button
               className={clsx(
-                "flex h-5 w-5 pl-[3.5px] items-center justify-center border-2 border-cpurple text-4xl",
+                "flex h-5 w-5 pl-[3.5px] items-center justify-center border-2 border-cpurple text-4xl hover:cursor-pointer",
                 {
                   "bg-fuchsia-200 hover:bg-fuchsia-100":
                     focused === props.title,

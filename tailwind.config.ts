@@ -24,6 +24,9 @@ const config: Config = {
         visitor: "Visitor",
         vt: "VT323",
       },
+      cursor: {
+        pointer: 'url("/cursor/nso_point.cur"), auto',
+      },
     },
   },
   plugins: [],
