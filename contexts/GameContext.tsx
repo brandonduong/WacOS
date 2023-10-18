@@ -33,6 +33,10 @@ export const TIME = {
 export const ENERGY_COSTS = {
   apply: 40,
 };
+export const ENERGY_BOOSTS = {
+  rest1: 20,
+  rest2: 50,
+};
 
 export type Time = keyof typeof TIME;
 
@@ -41,7 +45,7 @@ export interface GameType {
   day: number;
   stats: StatsType;
   setStats: (stats: StatsType) => void;
-  setTime: (time: Time) => void;
+  setTimeTo: (time: Time) => void;
   nextDay: () => void;
   loading: boolean;
   load: () => void;
@@ -99,18 +103,49 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     generateJob(),
   ]);
 
+  function setTimeTo(t: Time): void {
+    setTime(t);
+
+    // Gain energy
+    let e = 0;
+    switch (TIME[t] - TIME[time]) {
+      case 1:
+        e = ENERGY_BOOSTS.rest1;
+        break;
+      case 2:
+        e = ENERGY_BOOSTS.rest2;
+      default:
+        break;
+    }
+
+    setStats({ ...stats, energy: Math.min(stats.energy + e, 100) });
+  }
+
   function nextDay() {
     setDay(day + 1);
 
     // Get new emails in response to applications
     setEmails([generateRejection(), ...emails]);
 
+    // Remove random postings
+    const oldJobs = jobs.filter((job) => {
+      if (rng(100) >= 60) {
+        return job;
+      }
+    });
+
     // Generate new job postings
+    const newJobs = [];
+    for (let i = 0; i < 5; i++) {
+      newJobs.push(generateJob());
+    }
+
+    setJobs([...newJobs, ...oldJobs]);
 
     // Gain guilt if have left over energy
     const guiltMod =
       stats.energy > 60 ? 5 : stats.energy > 30 ? 3 : stats.energy > 10 ? 1 : 0;
-    setStats({ ...stats, guilt: stats.guilt + guiltMod });
+    setStats({ ...stats, guilt: stats.guilt + guiltMod, energy: 100 });
 
     load();
   }
@@ -140,7 +175,7 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
       )}\nRequirements: ${getRandom(REQUIREMENTS)}\n${getRandom(END)}`,
       title: getRandom(TECH_TITLES),
       applied: false,
-      id: `job-${first}-${last}`,
+      id: `job-${first}-${last}-${rng(99999)}`,
       company: getRandom(TECH_COMPANIES),
       location: `${rng(100)} ${getRandom(LOCATIONS)}`,
       time: `${rng(30)} ${getRandom(TIMES)}`,
@@ -198,7 +233,7 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
       day,
       stats,
       setStats,
-      setTime,
+      setTimeTo,
       nextDay,
       loading,
       load,

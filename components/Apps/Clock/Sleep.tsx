@@ -8,12 +8,12 @@ interface Props {
   newTime: Time;
 }
 export default function Sleep({ newTime }: Props) {
-  const { setTime, nextDay, time } = useGame();
+  const { setTimeTo, nextDay, time } = useGame();
   const { removeApp } = useApps();
   const disabled = newTime !== "morning" && TIME[time] >= TIME[newTime];
 
   function handleClick() {
-    setTime(newTime);
+    setTimeTo(newTime);
     if (newTime === "morning") {
       nextDay();
     }
@@ -22,8 +22,8 @@ export default function Sleep({ newTime }: Props) {
 
   return (
     <button
-      className={clsx("flex flex-col items-center", {
-        "contrast-50": disabled,
+      className={clsx("flex flex-col items-center hover:cursor-pointer", {
+        "contrast-50 hover:cursor-disabled": disabled,
       })}
       onClick={handleClick}
       disabled={disabled}
