@@ -30,6 +30,18 @@ export default function Desktop() {
           id={app.id}
         />
       ))}
+      <DesktopIcon
+        icon={"/icons/coffee.png"}
+        isDraggable
+        onDoubleClick={() =>
+          window.open("https://ko-fi.com/brandonduong", "_blank")
+        }
+        width={80}
+        height={80}
+        defaultPosition={{ x: 10, y: 100 * AppsOnDesktop.length + 10 }}
+        title={"Ko-fi"}
+        id={"ko-fi"}
+      />
     </>
   );
 }

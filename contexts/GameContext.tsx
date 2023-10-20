@@ -37,6 +37,12 @@ export const ENERGY_BOOSTS = {
   rest1: 20,
   rest2: 50,
 };
+export const STRESS_COSTS = {
+  Rejection: 6,
+};
+export const GUILT_COSTS = {
+  Rejection: 3,
+};
 
 export type Time = keyof typeof TIME;
 
@@ -247,10 +253,20 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     const ind = emails.findIndex((email) => email.id === id);
     const old = emails[ind];
 
-    // Update email list
-    const updated = { ...old, opened: true };
-    if (old) {
-      setEmails([...emails.slice(0, ind), updated, ...emails.slice(ind + 1)]);
+    if (!old.opened) {
+      // Update email list
+      const updated = { ...old, opened: true };
+      if (old) {
+        setEmails([...emails.slice(0, ind), updated, ...emails.slice(ind + 1)]);
+      }
+
+      // Increase rejection count, stress, and guilt
+      setStats({
+        ...stats,
+        stress: stats.stress + rng(STRESS_COSTS.Rejection),
+        guilt: stats.guilt + rng(GUILT_COSTS.Rejection),
+        rejections: stats.rejections + 1,
+      });
     }
   }
 
