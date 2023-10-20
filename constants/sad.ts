@@ -40,4 +40,6 @@ export const SUPPORT = [
   "Try to reach out to others?",
   "Other job boards could be good!",
   "aeiklufyaehrfiuwehnfkjaf",
+  "How's job hunting going?",
+  "You'll find something soon, I know it!",
 ];

@@ -8,7 +8,7 @@ export default function Messenger() {
   setReadMessages(true);
 
   return (
-    <div className="bg-messenger p-2">
+    <div className="bg-messenger bg-repeat-y bg-cover p-2">
       {messages.map((message, ind) => (
         <div
           key={`message-${ind}`}
