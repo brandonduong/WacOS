@@ -12,6 +12,7 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        messenger: "url('/messenger.png')",
       },
       dropShadow: {
         "3xl": "4px 4px 0px rgb(90, 42, 213, 0.5)",

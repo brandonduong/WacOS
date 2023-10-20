@@ -121,7 +121,7 @@ export default function DesktopIcon({
           }}
           className={clsx(`bg-contain bg-center bg-no-repeat relative`)}
         >
-          {notifications! > 0 && (
+          {notifications && (
             <>
               {id === "email" && (
                 <div className="absolute right-[-8px] top-1 bg-fuchsia-200 border-4 border-cpurple rounded-full p-1"></div>

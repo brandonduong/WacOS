@@ -17,6 +17,7 @@ import {
 } from "@/constants/jobs";
 import { FAKE_LAST } from "@/constants/lasts";
 import { LOCATIONS } from "@/constants/locations";
+import { SAD, SUPPORT } from "@/constants/sad";
 import { STORY } from "@/constants/story";
 import { TIMES } from "@/constants/times";
 import { TECH_TITLES } from "@/constants/titles";
@@ -56,6 +57,9 @@ export interface GameType {
   jobs: JobType[];
   applyToJob: (id: string) => void;
   readEmail: (id: string) => void;
+  readMessages: boolean;
+  setReadMessages: (read: boolean) => void;
+  messages: MessageType[];
 }
 
 interface StatsType {
@@ -97,7 +101,10 @@ const GameContext = createContext<GameType>({} as GameType);
 const GameProvider = ({ children }: { children: ReactNode }) => {
   const [time, setTime] = useState<Time>("morning");
   const [day, setDay] = useState(1);
-  const [messages, setMessages] = useState<MessageType[]>([]);
+  const [messages, setMessages] = useState<MessageType[]>([
+    { outgoing: true, message: SAD[rng(SAD.length)] },
+  ]);
+  const [readMessages, setReadMessages] = useState<boolean>(false);
   const [stats, setStats] = useState<StatsType>({
     rejections: 0,
     energy: 100,
@@ -171,6 +178,24 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     setStats({ ...stats, guilt: stats.guilt + guiltMod, energy: 100 });
 
     // Generate new messages
+    // Randomly get messages
+    if (rng(10) < 4) {
+      // Randomly get sad or supporting
+      if (rng(10) < 5) {
+        // Get sad
+        setMessages([
+          ...messages,
+          { outgoing: true, message: SAD[rng(SAD.length)] },
+        ]);
+      } else {
+        // Get support
+        setMessages([
+          ...messages,
+          { outgoing: false, message: SUPPORT[rng(SUPPORT.length)] },
+        ]);
+      }
+      setReadMessages(false);
+    }
 
     load();
   }
@@ -276,8 +301,11 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
       jobs,
       applyToJob,
       readEmail,
+      messages,
+      readMessages,
+      setReadMessages,
     }),
-    [time, day, stats, loading, emails, jobs]
+    [time, day, stats, loading, emails, jobs, messages, readMessages]
   );
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;

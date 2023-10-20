@@ -4,19 +4,20 @@ import { AppsOnDesktop } from "../../constants/desktop";
 // hooks
 import { useApps } from "../../hooks/useApp";
 import Application from "../Application";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGame } from "@/hooks/useGame";
 
 export default function Desktop() {
   const { apps, addApp } = useApps();
-  const { emails } = useGame();
+  const { emails, readMessages } = useGame();
 
   function notifications(id: string) {
     if (id === "email") {
-      return emails.filter((email) => !email.opened).length;
+      return emails.filter((email) => !email.opened).length > 0;
     } else if (id === "messenger") {
-      return 1;
+      return !readMessages;
     }
+    return false;
   }
 
   return (
