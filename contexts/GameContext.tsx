@@ -61,12 +61,14 @@ interface StatsType {
   guilt: number;
 }
 
-interface EmailType {
+export interface EmailType {
   author: string;
   message: string;
   subject: string;
   opened: boolean;
   id: string;
+  title: string;
+  company: string;
 }
 
 export interface JobType {
@@ -102,6 +104,7 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     generateJob(),
     generateJob(),
   ]);
+  const [applications, setApplications] = useState<JobType[]>([]);
 
   function setTimeTo(t: Time): void {
     setTime(t);
@@ -127,7 +130,15 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     setDay(day + 1);
 
     // Get new emails in response to applications
-    setEmails([generateRejection(), ...emails]);
+    let cpy = emails;
+    let newApplications = applications;
+    for (let i = 0; i < applications.length; i++) {
+      if (rng(10) <= 3) {
+        cpy = [generateRejection(applications[i]), ...cpy];
+        newApplications = newApplications.splice(i, 1);
+      }
+    }
+    setEmails(cpy);
 
     // Remove random postings
     const oldJobs = jobs.filter((job) => {
@@ -190,11 +201,11 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     const old = jobs[ind];
 
     // Update job list
-    setJobs([
-      ...jobs.slice(0, ind),
-      { ...old, applied: true },
-      ...jobs.slice(ind + 1),
-    ]);
+    const updated = { ...old, applied: true };
+    setJobs([...jobs.slice(0, ind), updated, ...jobs.slice(ind + 1)]);
+
+    // Add job to applications
+    setApplications([...applications, updated]);
 
     // Update stats
     setStats({ ...stats, energy: stats.energy - ENERGY_COSTS.apply });
@@ -204,28 +215,30 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     return Math.floor(Math.random() * maxNum);
   }
 
-  function generateRejection(): EmailType {
-    const first = getRandom(FAKE_FIRST);
-    const last = getRandom(FAKE_LAST);
+  function generateRejection(application: JobType): EmailType {
     if (rng(10) <= 7) {
       return {
-        author: `${first} ${last}`,
+        author: application.author,
         message: `${getRandom(GREETINGS)}\n${getRandom(
           REJECT_MESSAGES
         )}\n${getRandom(BYES)}`,
         subject: getRandom(REJECT_SUBJECTS),
         opened: false,
-        id: `reject-${first}-${last}`,
+        id: `reject-${application.author}`,
+        title: application.title,
+        company: application.company,
       };
     } else
       return {
-        author: `${first} ${last}`,
+        author: `${application.author}`,
         message: `${getRandom(UNPROFESSIONAL_GREETINGS)}\n${getRandom(
           UNPROFESSIONAL_REJECT_MESSAGES
         )}\n${getRandom(UNPROFESSIONAL_BYES)}`,
         subject: getRandom(REJECT_SUBJECTS),
         opened: false,
-        id: `reject-${first}-${last}`,
+        id: `reject-${application.author}`,
+        title: application.title,
+        company: application.company,
       };
   }
 

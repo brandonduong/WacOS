@@ -3,6 +3,8 @@ import { useGame } from "@/hooks/useGame";
 import { useEffect, useState } from "react";
 import EmailButton from "./EmailButton";
 import { useWindowSize } from "react-use";
+import { auth } from "@/firebase";
+import { EmailType } from "@/contexts/GameContext";
 
 export default function Email() {
   const { emails } = useGame();
@@ -15,11 +17,12 @@ export default function Email() {
     setIsResizable(true);
   }, []);
 
-  function parseEmail() {
-    return selectedEmail!.message.replaceAll(
-      "[Fake Recruiter Name]",
-      selectedEmail!.author
-    );
+  function parseEmail(message: string, email: EmailType) {
+    return message
+      .replaceAll("[Fake Recruiter Name]", email.author)
+      .replaceAll("[Applicant Name]", auth.currentUser!.displayName!)
+      .replaceAll("[Position Name]", email.title)
+      .replaceAll("[Fake Company Name]", email.company);
   }
 
   return (
@@ -29,8 +32,8 @@ export default function Email() {
           <div className="mb-2" key={`${email.author}-${email.subject}`}>
             <EmailButton
               author={email.author}
-              message={email.message}
-              subject={email.subject}
+              message={parseEmail(email.message, email)}
+              subject={parseEmail(email.subject, email)}
               opened={email.opened}
               selected={selected === email.id}
               handleClick={() => {
@@ -44,12 +47,14 @@ export default function Email() {
               >
                 {selectedEmail && (
                   <>
-                    <div className="text-ccyan">{selectedEmail.subject}</div>
+                    <div className="text-ccyan">
+                      {parseEmail(email.subject, email)}
+                    </div>
                     <div className="text-slate-400">{selectedEmail.author}</div>
                     <div>
-                      {parseEmail()
+                      {parseEmail(email.message, email)
                         .split("\n")
-                        .map((line) => (
+                        .map((line: string) => (
                           <div key={line} className="mt-4">
                             {line}
                           </div>

@@ -62,12 +62,12 @@ export const REJECT_MESSAGES = [
     We encourage you to continue pursuing opportunities that align with your career goals and wish you the best of luck in your job search.
     Thank you again for your interest in [Fake Company Name].
     `,
-  `We regret to inform you that your application for the position of [Position Title] at our esteemed organization has been unsuccessful. While we appreciate your interest in joining our team, we must prioritize candidates who possess the necessary qualifications and experience.
+  `We regret to inform you that your application for the position of [Position Name] at our esteemed organization has been unsuccessful. While we appreciate your interest in joining our team, we must prioritize candidates who possess the necessary qualifications and experience.
     After careful consideration, we have determined that your application does not meet our rigorous standards. We were particularly unimpressed with your lackluster achievements, generic cover letter, and the absence of any notable contributions to your previous roles.
     We understand that you may be disappointed by this decision, but we assure you that it is in your best interest. Our organization thrives on excellence, and we simply cannot compromise our standards to accommodate subpar candidates like yourself.
     We encourage you to reflect on this experience and consider ways to improve your future applications. Perhaps you could invest in additional training, gain more relevant experience, or simply develop a more compelling personality. These efforts may increase your chances of success in the future, although we cannot guarantee it.
     Thank you for your interest in our organization, and we wish you the best of luck in your future endeavors. Should you require any further condescending advice, please do not hesitate to reach out.`,
-  `Thank you for your application for the position of [Position Title]. Unfortunately, we have decided not to proceed with your candidacy. We received a large number of applications from highly qualified candidates, and we simply cannot consider someone with your lack of experience and qualifications.
+  `Thank you for your application for the position of [Position Name]. Unfortunately, we have decided not to proceed with your candidacy. We received a large number of applications from highly qualified candidates, and we simply cannot consider someone with your lack of experience and qualifications.
     We suggest that you consider applying for positions that are more suitable for your skills and experience level. Perhaps a job that requires less intelligence and more manual labor would be a better fit for you.
     Thank you for your interest in our organization, and we wish you the best of luck in your future endeavors.`,
 ];
