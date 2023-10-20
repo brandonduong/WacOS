@@ -82,6 +82,8 @@ const ApplicationProvider = ({ children }: { children: ReactNode }) => {
 
       setApps([...apps, app]);
       setForwardsHistory(name);
+    } else {
+      setForwardsHistory(name);
     }
   };
 

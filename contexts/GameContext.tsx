@@ -67,8 +67,8 @@ export interface EmailType {
   subject: string;
   opened: boolean;
   id: string;
-  title: string;
-  company: string;
+  title?: string;
+  company?: string;
 }
 
 export interface JobType {
