@@ -16,6 +16,7 @@ export default function DesktopIcon({
   height = 80,
   icon,
   id,
+  notifications,
 }: IAppIconProps) {
   const [showAppBg, setShowAppBg] = useState(false);
   const [clickCount, setClickCount] = useState(0);
@@ -118,8 +119,19 @@ export default function DesktopIcon({
             height: width * 0.8,
             backgroundImage: `url(${icon})`,
           }}
-          className={clsx(`bg-contain bg-center bg-no-repeat`)}
-        />
+          className={clsx(`bg-contain bg-center bg-no-repeat relative`)}
+        >
+          {notifications! > 0 && (
+            <>
+              {id === "email" && (
+                <div className="absolute right-[-8px] top-1 bg-fuchsia-200 border-4 border-cpurple rounded-full p-1"></div>
+              )}
+              {id === "messenger" && (
+                <div className="absolute right-[-8px] top-[-8px] bg-fuchsia-200 border-4 border-cpurple rounded-full p-1"></div>
+              )}
+            </>
+          )}
+        </div>
         <strong
           style={{ width: width * 1.2, fontSize: "0.85rem" }}
           className={clsx(

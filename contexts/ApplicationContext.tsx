@@ -8,7 +8,7 @@ const APPLICATIONS = {
   clock: lazy(() => import("../components/Apps/Clock/index")),
   task: lazy(() => import("../components/Apps/TaskManager/index")),
   email: lazy(() => import("../components/Apps/Email/index")),
-  messenger: lazy(() => import("../components/Apps/Clock/index")),
+  messenger: lazy(() => import("../components/Apps/Messenger/index")),
   internet: lazy(() => import("../components/Apps/Internet/index")),
 };
 

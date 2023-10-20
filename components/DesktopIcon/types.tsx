@@ -7,6 +7,7 @@ interface IAppIconProps extends React.HTMLAttributes<HTMLDivElement> {
   width?: number;
   height?: number;
   id: string;
+  notifications?: number;
 }
 
 export type { IAppIconProps };

@@ -5,9 +5,19 @@ import { AppsOnDesktop } from "../../constants/desktop";
 import { useApps } from "../../hooks/useApp";
 import Application from "../Application";
 import { useState } from "react";
+import { useGame } from "@/hooks/useGame";
 
 export default function Desktop() {
   const { apps, addApp } = useApps();
+  const { emails } = useGame();
+
+  function notifications(id: string) {
+    if (id === "email") {
+      return emails.filter((email) => !email.opened).length;
+    } else if (id === "messenger") {
+      return 1;
+    }
+  }
 
   return (
     <>
@@ -28,6 +38,7 @@ export default function Desktop() {
           defaultPosition={{ x: 10, y: 100 * index + 10 }}
           title={app.title}
           id={app.id}
+          notifications={notifications(app.id)}
         />
       ))}
       <DesktopIcon

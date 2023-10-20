@@ -4,9 +4,6 @@ import {
   GREETINGS,
   REJECT_MESSAGES,
   REJECT_SUBJECTS,
-  UNPROFESSIONAL_BYES,
-  UNPROFESSIONAL_GREETINGS,
-  UNPROFESSIONAL_REJECT_MESSAGES,
 } from "@/constants/emails";
 import { FAKE_FIRST } from "@/constants/firsts";
 import {
@@ -90,11 +87,17 @@ export interface JobType {
   people: number;
 }
 
+export interface MessageType {
+  outgoing: boolean;
+  message: string;
+}
+
 const GameContext = createContext<GameType>({} as GameType);
 
 const GameProvider = ({ children }: { children: ReactNode }) => {
   const [time, setTime] = useState<Time>("morning");
   const [day, setDay] = useState(1);
+  const [messages, setMessages] = useState<MessageType[]>([]);
   const [stats, setStats] = useState<StatsType>({
     rejections: 0,
     energy: 100,
@@ -167,6 +170,8 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
       stats.energy > 60 ? 5 : stats.energy > 30 ? 3 : stats.energy > 10 ? 1 : 0;
     setStats({ ...stats, guilt: stats.guilt + guiltMod, energy: 100 });
 
+    // Generate new messages
+
     load();
   }
 
@@ -223,30 +228,17 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
   }
 
   function generateRejection(application: JobType): EmailType {
-    if (rng(10) <= 7) {
-      return {
-        author: application.author,
-        message: `${getRandom(GREETINGS)}\n${getRandom(
-          REJECT_MESSAGES
-        )}\n${getRandom(BYES)}`,
-        subject: getRandom(REJECT_SUBJECTS),
-        opened: false,
-        id: `reject-${application.author}`,
-        title: application.title,
-        company: application.company,
-      };
-    } else
-      return {
-        author: `${application.author}`,
-        message: `${getRandom(UNPROFESSIONAL_GREETINGS)}\n${getRandom(
-          UNPROFESSIONAL_REJECT_MESSAGES
-        )}\n${getRandom(UNPROFESSIONAL_BYES)}`,
-        subject: getRandom(REJECT_SUBJECTS),
-        opened: false,
-        id: `reject-${application.author}`,
-        title: application.title,
-        company: application.company,
-      };
+    return {
+      author: application.author,
+      message: `${getRandom(GREETINGS)}\n${getRandom(
+        REJECT_MESSAGES
+      )}\n${getRandom(BYES)}`,
+      subject: getRandom(REJECT_SUBJECTS),
+      opened: false,
+      id: `reject-${application.author}`,
+      title: application.title,
+      company: application.company,
+    };
   }
 
   function readEmail(id: string) {

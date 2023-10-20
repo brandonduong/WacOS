@@ -15,17 +15,10 @@ export const GREETINGS = [
   "Hey [Applicant Name]!",
 ];
 
-export const UNPROFESSIONAL_GREETINGS = ["yoooo", "blah blah blah blah"];
-
 export const BYES = [
   `Sincerely,\n[Fake Recruiter Name]`,
   `From,\n[Fake Recruiter Name]`,
   `Best Regards,\n[Fake Recruiter Name]`,
-];
-
-export const UNPROFESSIONAL_BYES = [
-  `Later nerd`,
-  `blah blah,\n[Fake Recruiter Name]`,
 ];
 
 export const REJECT_MESSAGES = [
@@ -70,14 +63,4 @@ export const REJECT_MESSAGES = [
   `Thank you for your application for the position of [Position Name]. Unfortunately, we have decided not to proceed with your candidacy. We received a large number of applications from highly qualified candidates, and we simply cannot consider someone with your lack of experience and qualifications.
     We suggest that you consider applying for positions that are more suitable for your skills and experience level. Perhaps a job that requires less intelligence and more manual labor would be a better fit for you.
     Thank you for your interest in our organization, and we wish you the best of luck in your future endeavors.`,
-];
-
-export const UNPROFESSIONAL_REJECT_MESSAGES = [
-  `
-    You are not it
-    `,
-  `Thank you for taking the time to blah to us about the blah position at our blah. We appreciate your interest in our blah and the effort you put into your blah.
-    After careful blah and consideration, we have decided not to blah you for the blah position. We received a blah number of blahs from highly qualified blahs, and unfortunately, we were unable to blah all of them.
-    We encourage you to blah our blah for future blahs and to blah for other blahs that may be of interest to you. We appreciate your blah in our blah and wish you the best of blah in your blah search.
-    Thank you again for your blah in our blah.`,
 ];
