@@ -50,9 +50,8 @@ export default function Task({ title, value, graph }: Props) {
   return (
     <div
       className={clsx("grid gap-x-4", { "h-11": graph })}
-      style={{ gridTemplateColumns: "0.25fr 1fr 1fr" }}
+      style={{ gridTemplateColumns: "1fr 1fr" }}
     >
-      <div>icon</div>
       <div
         className={clsx("flex flex-col justify-center", {
           "col-span-2": !graph,
