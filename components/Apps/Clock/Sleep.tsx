@@ -1,4 +1,5 @@
-import { TIME, Time } from "@/contexts/GameContext";
+import CustomHover from "@/components/CustomHover";
+import { ENERGY_BOOSTS, TIME, Time } from "@/contexts/GameContext";
 import { useApps } from "@/hooks/useApp";
 import { useGame } from "@/hooks/useGame";
 import clsx from "clsx";
@@ -20,24 +21,37 @@ export default function Sleep({ newTime }: Props) {
     removeApp("clock"); // Close window after sleeping
   }
 
+  function calculateBoost() {
+    switch (TIME[newTime] - TIME[time]) {
+      case 1:
+        return ENERGY_BOOSTS.rest1;
+      case 2:
+        return ENERGY_BOOSTS.rest2;
+      default:
+        return 100;
+    }
+  }
+
   return (
-    <button
-      className={clsx("flex flex-col items-center hover:cursor-pointer", {
-        "contrast-50 hover:cursor-disabled": disabled,
-      })}
-      onClick={handleClick}
-      disabled={disabled}
-    >
-      <Image
-        src={`/icons/${newTime}.png`}
-        width={48}
-        height={48}
-        alt={newTime}
-        draggable={false}
-        className="mb-2"
-      />
-      <span className="leading-3">Sleep Until</span>
-      <span className="leading-3 capitalize">{newTime}</span>
-    </button>
+    <CustomHover text={`Energy: +${calculateBoost()}`} disabled={disabled}>
+      <button
+        className={clsx("flex flex-col items-center hover:cursor-pointer", {
+          "contrast-50 hover:cursor-disabled": disabled,
+        })}
+        onClick={handleClick}
+        disabled={disabled}
+      >
+        <Image
+          src={`/icons/${newTime}.png`}
+          width={48}
+          height={48}
+          alt={newTime}
+          draggable={false}
+          className="mb-2"
+        />
+        <span className="leading-3">Sleep Until</span>
+        <span className="leading-3 capitalize">{newTime}</span>
+      </button>
+    </CustomHover>
   );
 }

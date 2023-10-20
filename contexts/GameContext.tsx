@@ -119,6 +119,8 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     }
 
     setStats({ ...stats, energy: Math.min(stats.energy + e, 100) });
+
+    load();
   }
 
   function nextDay() {
