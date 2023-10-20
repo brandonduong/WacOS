@@ -61,7 +61,6 @@ export default function Draggable({
     const TASKBAR_HEIGHT = 50;
 
     const { x, y } = e.point;
-    console.log(x, y, initialHeight);
     let newX, newY;
     if (y > height - TASKBAR_HEIGHT) {
       newY = height - TASKBAR_HEIGHT * 2;
@@ -88,7 +87,7 @@ export default function Draggable({
       const coords = refElement.style.transform.match(
         /^translateX\((.+)px\) translateY\((.+)px\)/
       );
-      console.log(refElement.style.transform);
+
       if (coords?.length) {
         setXY(
           id,
