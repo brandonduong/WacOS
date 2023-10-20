@@ -6,6 +6,7 @@ import { useWindow } from "@/contexts/WindowContext";
 import CustomButton from "@/components/CustomButton";
 import clsx from "clsx";
 import { ENERGY_COSTS } from "@/contexts/GameContext";
+import CustomHover from "@/components/CustomHover";
 
 export default function Internet() {
   const { height } = useWindowSize();
@@ -43,7 +44,7 @@ export default function Internet() {
       >
         {selectedJob && (
           <>
-            <div className="flex justify-between">
+            <div className="flex justify-between items-start">
               <div>
                 <div className="text-ccyan">{selectedJob.title}</div>
                 <div className="text-slate-400">{selectedJob.company}</div>
@@ -53,7 +54,11 @@ export default function Internet() {
                 <div className="text-slate-400">{selectedJob.time} ago</div>
                 <div className="text-slate-400">{selectedJob.author}</div>
               </div>
-              <div>
+              <CustomHover
+                text={`Energy: -${ENERGY_COSTS.apply}`}
+                justify="end"
+                position="bot"
+              >
                 <button
                   className={clsx(
                     "flex px-2 items-center justify-center border-2 border-cpurple text-cpurple text-2xl bg-fuchsia-200",
@@ -79,7 +84,7 @@ export default function Internet() {
                     ? "Apply"
                     : "No Energy"}
                 </button>
-              </div>
+              </CustomHover>
             </div>
             <div>
               {parseJob()

@@ -33,7 +33,13 @@ export default function Sleep({ newTime }: Props) {
   }
 
   return (
-    <CustomHover text={`Energy: +${calculateBoost()}`} disabled={disabled}>
+    <CustomHover
+      text={`Energy: +${calculateBoost()}`}
+      disabled={disabled}
+      justify="center"
+      position="top"
+      offset={48}
+    >
       <button
         className={clsx("flex flex-col items-center hover:cursor-pointer", {
           "contrast-50 hover:cursor-disabled": disabled,
