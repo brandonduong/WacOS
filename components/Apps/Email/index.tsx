@@ -6,7 +6,7 @@ import { useWindowSize } from "react-use";
 
 export default function Email() {
   const { emails } = useGame();
-  const [selected, setSelected] = useState(emails[0].id);
+  const [selected, setSelected] = useState("");
   const { setIsResizable } = useWindow();
   const selectedEmail = emails.find((email) => email.id === selected);
   const { height } = useWindowSize();
@@ -33,7 +33,9 @@ export default function Email() {
               subject={email.subject}
               opened={email.opened}
               selected={selected === email.id}
-              handleClick={() => setSelected(email.id)}
+              handleClick={() => {
+                selected === email.id ? setSelected("") : setSelected(email.id);
+              }}
             />
             {email.id === selected && (
               <div
