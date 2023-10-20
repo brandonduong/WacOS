@@ -7,7 +7,7 @@ import { auth } from "@/firebase";
 import { EmailType } from "@/contexts/GameContext";
 
 export default function Email() {
-  const { emails } = useGame();
+  const { emails, readEmail } = useGame();
   const [selected, setSelected] = useState("");
   const { setIsResizable } = useWindow();
   const selectedEmail = emails.find((email) => email.id === selected);
@@ -21,8 +21,17 @@ export default function Email() {
     return message
       .replaceAll("[Fake Recruiter Name]", email.author)
       .replaceAll("[Applicant Name]", auth.currentUser!.displayName!)
-      .replaceAll("[Position Name]", email.title)
-      .replaceAll("[Fake Company Name]", email.company);
+      .replaceAll("[Position Name]", email.title!)
+      .replaceAll("[Fake Company Name]", email.company!);
+  }
+
+  function handleClick(email: EmailType) {
+    if (selected === email.id) {
+      setSelected("");
+    } else {
+      setSelected(email.id);
+      readEmail(email.id);
+    }
   }
 
   return (
@@ -36,9 +45,7 @@ export default function Email() {
               subject={parseEmail(email.subject, email)}
               opened={email.opened}
               selected={selected === email.id}
-              handleClick={() => {
-                selected === email.id ? setSelected("") : setSelected(email.id);
-              }}
+              handleClick={() => handleClick(email)}
             />
             {email.id === selected && (
               <div

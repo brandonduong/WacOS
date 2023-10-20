@@ -52,6 +52,7 @@ export interface GameType {
   emails: EmailType[];
   jobs: JobType[];
   applyToJob: (id: string) => void;
+  readEmail: (id: string) => void;
 }
 
 interface StatsType {
@@ -242,6 +243,17 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
       };
   }
 
+  function readEmail(id: string) {
+    const ind = emails.findIndex((email) => email.id === id);
+    const old = emails[ind];
+
+    // Update email list
+    const updated = { ...old, opened: true };
+    if (old) {
+      setEmails([...emails.slice(0, ind), updated, ...emails.slice(ind + 1)]);
+    }
+  }
+
   const value = useMemo(
     () => ({
       time,
@@ -255,6 +267,7 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
       emails,
       jobs,
       applyToJob,
+      readEmail,
     }),
     [time, day, stats, loading, emails, jobs]
   );

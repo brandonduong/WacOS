@@ -20,7 +20,7 @@ export default function EmailButton({
   return (
     <div
       className={clsx(
-        "p-2 bg-fuchsia-200 border-2 flex flex-col",
+        "p-2 bg-fuchsia-200 border-2 flex flex-col relative",
         {
           "border-cpurple": selected,
         },
@@ -37,6 +37,9 @@ export default function EmailButton({
       <div className="truncate text-cpurple">
         <span>{message}</span>
       </div>
+      {!opened && (
+        <div className="absolute right-[-8px] top-[-8px] bg-fuchsia-200 border-4 border-cpurple rounded-full p-1"></div>
+      )}
     </div>
   );
 }
