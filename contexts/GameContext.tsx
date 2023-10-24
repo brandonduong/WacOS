@@ -179,7 +179,7 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
 
     // Generate new messages
     // Randomly get messages
-    if (rng(10) < 4) {
+    if (rng(10) <= 6) {
       // Randomly get sad or supporting
       if (rng(10) < 5) {
         // Get sad
@@ -260,7 +260,7 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
       )}\n${getRandom(BYES)}`,
       subject: getRandom(REJECT_SUBJECTS),
       opened: false,
-      id: `reject-${application.author}`,
+      id: `reject-${application.author}-${rng(99999)}`,
       title: application.title,
       company: application.company,
     };
