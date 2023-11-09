@@ -12,54 +12,33 @@ Fake operating system with familiar login, desktop icons, window behaviour, and 
 
 Icons and apps are draggable and snap to grid.
 
-https://github.com/brandonduong/brandonduong-portfolio/blob/main/public/personal/wacos/wacos2.mp4
+https://github.com/brandonduong/WacOS/assets/48176127/dc4cf252-5797-4674-a041-8c0ee0a0b432
 
-## Question/Statement List
+## Identical Experience
 
-Each category has their own list of questions that were either created by Nay or Yay, or by the community. Signed in users can see their answer to each question.
+Apps open in windows and can be dragged, minimized, maximized, closed, and overlap on focus.
 
-![image](https://github.com/brandonduong/NayOrYay/assets/48176127/89c7d734-de9c-46be-b273-06e92dfcfc9b)
+https://github.com/brandonduong/WacOS/assets/48176127/f517acb4-e65e-4f57-98e7-d3c945031973
 
-## Question/Statement
+## Job Search
 
-Signed in users can vote Nay or Yay depending on their opinion.
+Use energy to browse the internet for job postings and submitting applications.
 
-![image](https://github.com/brandonduong/NayOrYay/assets/48176127/401fba8a-b8e8-419b-820d-af8f867c9ab5)
+https://github.com/brandonduong/WacOS/assets/48176127/c07bb9f5-eefa-41b6-8093-9d8e4106433a
 
-## Votes
+## Application Status
 
-Each question stores who voted which option and displays the results.
+End the day to receive emails about your application updates.
 
-![image](https://github.com/brandonduong/NayOrYay/assets/48176127/dd547551-422b-4dd8-a85d-99ae8b17d531)
+https://github.com/brandonduong/WacOS/assets/48176127/bb7e7c32-910c-4598-8af9-248de25cf20e
 
-## Add Category
+## Support Network
 
-Any user can create a category as long as the name is unique.
+Randomly receive messages of support to help continue the grind.
 
-![image](https://github.com/brandonduong/NayOrYay/assets/48176127/85652d8a-cc9f-4c51-8643-d35ab44b0135)
-
-## Add Question
-
-Any user can create a question within any category.
-
-![image](https://github.com/brandonduong/NayOrYay/assets/48176127/fd5b8eea-0e75-4d8f-8e42-bef3c34dd19a)
-
-## Profile
-
-Users can share their profile with others to show off their votes, organized by category.
-
-![image](https://github.com/brandonduong/NayOrYay/assets/48176127/5142a5c5-ec85-4a5d-a0f5-853197201783)
+https://github.com/brandonduong/WacOS/assets/48176127/c11a8cb8-519d-4ed0-979a-274059a9375f
 
 # Project Setup
 
     npm install
-    npm run start
-
-## Build and Deploy
-
-In ./ and ./client
-
-    npm run build
-    eb deploy ENVIRONMENT_NAME
-
-Need ec2 instance that is connected to postgresql database from RDS. Found out the hard way AWS RDS, Elastic Beanstalk, and EC2 are expensive, so no live deployment.
+    npm run dev
