@@ -42,3 +42,11 @@ https://github.com/brandonduong/WacOS/assets/48176127/c11a8cb8-519d-4ed0-979a-27
 
     npm install
     npm run dev
+
+# Future Plans
+- Guilt and stress effects
+- Activities to manage guilt/stress/energy
+- More dialogue for job postings, emails, messenger
+- Ending where player receives a job offer
+- Player has soft skills and hard skills that affect rejection chance
+- Job postings have soft skills and hard skills that affect rejection chance
